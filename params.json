@@ -1,0 +1,6 @@
+{
+  "name": "SmileBASIC Source chatJS Plugins",
+  "tagline": "Make life easier. Use plugins.",
+  "body": "  \r\nThe chatJS Plugin System is a simple way to share your extensions and use others that people have shared to make your SmileBASIC Source chat experience better. This plugin system adds a simple way to load your favorite plugins by including a few lines in your chatJS, without hassle.  \r\n---\r\n## How it works\r\nYou just copy the contents of [this file](/bootstrap.js) to your chatJS, refresh your chat, and you're ready! You can now use /loadplugin to load a new extra, or /localhelp to find out how to use a certain one.",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
