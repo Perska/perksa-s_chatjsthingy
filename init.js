@@ -180,3 +180,6 @@ var localHelp = function(args){
 	}
 	moduleMessage(d);
 };
+addCommand("localhelp", localHelp, "Gives a list of commands");
+
+systemMessage("Init.js loaded");
