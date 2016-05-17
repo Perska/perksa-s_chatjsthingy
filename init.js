@@ -214,7 +214,8 @@ var localHelp = function(args){
 	moduleMessage(d);
 };
 addCommand("localhelp", localHelp, "Gives a list of commands");
+addCommand("testsplit", () => {
+	moduleMessage(JSON.stringify(splitIntoSections(syncRequest("/query/chatJS")), null, "\t"));
+}, "Tests splitIntoSections")
 
-setTimeout(() => {
-	systemMessage("Init.js loaded successfully");
-}, 5000);
+systemMessage("Init.js loaded successfully");
