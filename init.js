@@ -98,6 +98,28 @@ window.loadPlugin = function(name){
 	}
 };
 
+// This is a new addition: unloadPlugin. This removes the commands
+// added by a plugin
+
+window.unloadPlugin = function(name){
+	var name = name.trim();
+	if(name === "")
+		return;
+	if(!(name in loaded["Plugins"])){
+		if(this.command)
+			warningMessage("Plugin \"" + name + "\" not loaded.");
+		return;
+	}
+	for(var i = 0; i < commands.length; i++){
+		var cmd = commands[i];
+		if(cmd.module === name){
+			commands.splice(i--, 1)
+		};
+	}
+	if(this.command)
+		systemMessage("Module \"" + name + "\" successfully unloaded!");
+};
+
 // A useful function added this time is loadAPI. It loads resources from a
 // script and returns them.
 
@@ -150,6 +172,7 @@ var addCommand = function(name, func, desc, mod){
 }
 
 addCommand("loadplugin", loadPlugin, "Loads a plugin from the system");
+addCommand("unloadplugin", unloadPlugin, "Unloads a plugin");
 
 // A localhelp plugin is very useful
 
