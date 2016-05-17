@@ -45,6 +45,12 @@ window.loadPlugin = function(name){
 			warningMessage("Plugin \"" + name + "\" does not exist!");
 		return false;
 	}
+	var chatJS = splitIntoSections(syncRequest("/query/chatJS"));
+	var pluginList = parseLoads(chatJS);
+	var ninList = false;
+	if(pluginList.indexOf(name) === -1)
+		ninList = true;
+	
 	var info = JSON.parse(info);
 	var script = info.script || "init.js";
 	var module = name;
@@ -75,6 +81,12 @@ window.loadPlugin = function(name){
 		loaded["Plugins"][name] = extras + "\n" + code;
 		if(this.command)
 			systemMessage("Plugin \"" + name + "\" loaded successfully!");
+		if(ninList){
+			pluginList.push(name);
+			var data = new FormData;
+			data.append("chatJS", JSON.stringify(generateFromSections(generateLoads(chatJS, pluginList))));
+			syncRequest("/query/savesettings", data);
+		}
 	} catch(e){
 		if(this.command)
 			warningMessage("Error while loading module \"" + name + "\": " + e.toString());
@@ -93,6 +105,14 @@ window.unloadPlugin = function(name){
 		if(this.command)
 			warningMessage("Plugin \"" + name + "\" not loaded.");
 		return;
+	}
+	var chatJS = splitIntoSections(syncRequest("/query/chatJS"));
+	var pluginList = parseLoads(chatJS);
+	if(pluginList.indexOf(name) !== -1){
+		pluginList.splice(pluginList.indexOf(name), 1);
+		var data = new FormData;
+		data.append("chatJS", JSON.stringify(generateFromSections(generateLoads(chatJS, pluginList))));
+		syncRequest("/query/savesettings", data);
 	}
 	for(var i = 0; i < commands.length; i++){
 		var cmd = commands[i];
@@ -198,13 +218,4 @@ var localHelp = function(args){
 	moduleMessage(d);
 };
 addCommand("localhelp", localHelp, "Gives a list of commands");
-addCommand("testsplit", () => {
-	prompt(null, JSON.stringify(splitIntoSections(syncRequest("/query/chatJS"))));
-}, "Tests splitIntoSections")
-addCommand("testregen", () => {
-	moduleMessage(generateFromSections(JSON.parse(prompt("JSON?"))));
-}), "Tests generateFromSections";
-addCommand("testloads", () => {
-	moduleMessage(parseLoads(JSON.parse(prompt("JSON?"))).toString());
-})
 systemMessage("Init.js loaded successfully");

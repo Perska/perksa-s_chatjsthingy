@@ -80,3 +80,14 @@ window.parseLoads = function(sects){
 	});
 	return list;
 };
+
+// This regenerates the loadPlugin instances into the LOADS section
+
+window.generateLoads = function(sects, plugins){
+	var o = "// Put your loadPlugin's here";
+	plugins.forEach(function(name){
+		o += "\nloadPlugin(\"" + name + "\");";
+	});
+	sects["loads"] = o;
+	return sects;
+};
