@@ -58,9 +58,8 @@ window.generateFromSections = function(sects){
 	var code = syncRequest(baseUrl + "bootstrap.js").replace(/^(\/\*[\s\S]+?\*\/)[\s\S]+?$/, "$1") + "\n";
 	for(var sect in sects){
 		systemMessage(sect);
-		if(sect.toLowerCase() === "insertafter"){
+		if(sect === "insertAfter")
 			return;
-		}
 		var sectCode = sects[sect];
 		code += "// SECTION " + sect.toUpperCase() + "\n" + sectCode + "\n";
 	}
