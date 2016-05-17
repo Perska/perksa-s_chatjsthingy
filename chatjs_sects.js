@@ -31,5 +31,6 @@ window.splitIntoSections = function(code){
 		}
 		sects[sect] = t.slice(start, end).join("\n");
 	}
+	delete sects.insertAfter;
 	return sects;
 };
