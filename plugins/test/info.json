@@ -1,0 +1,11 @@
+{
+	"name": "test",
+	"description": "A test plugin",
+	"script": "init.js",
+	"commands": [
+		{
+			"command": "test",
+			"description": "Does stuff"
+		}
+	]
+}
