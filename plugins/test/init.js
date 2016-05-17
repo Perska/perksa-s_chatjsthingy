@@ -1,4 +1,4 @@
 var init = function(){
 	systemMessage("Yay!");
 };
-addCommand("test", alert, "Does stuff");
+addCommand("test", msg => {alert(msg);}, "Does stuff");
