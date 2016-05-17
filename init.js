@@ -116,6 +116,7 @@ window.unloadPlugin = function(name){
 			commands.splice(i--, 1)
 		};
 	}
+	delete window.loaded["Plugins"][name];
 	if(this.command)
 		systemMessage("Module \"" + name + "\" successfully unloaded!");
 };
@@ -153,7 +154,9 @@ window.loadAPI = function(name, mn){
 	
 })();`;
 	try {
-		return eval(code);
+		var ret = eval(code);
+		window.loaded["APIs"][name] = code;
+		return ret;
 	} catch(e){
 		return e;
 	}
