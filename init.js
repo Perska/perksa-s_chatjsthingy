@@ -17,13 +17,13 @@ window.loaded = {
 };
 
 // This sends a module message (like a system message, but not centered)
-window.moduleMessage = function(msg)
+window.moduleMessage = function(msg){
 	displayMessage({
 		"type": "module",
 		"module": "chatjs",
 		"message": msg
 	});
-
+};
 // This is an all purpose sync request command. Returns the data
 
 window.syncRequest = function(url, data){
