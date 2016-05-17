@@ -153,7 +153,7 @@ addCommand("loadplugin", loadPlugin, "Loads a plugin from the system");
 var localHelp = function(args){
 	var mod = args.trim();
 	var d = "";
-	if(mod == null){
+	if(mod == null || mod == ""){
 		d = "Which plugin would you like help with?\n\n";
 		var modList = [];
 		commands.forEach(function(cmd){
