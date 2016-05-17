@@ -153,11 +153,13 @@ addCommand("loadplugin", loadPlugin, "Loads a plugin from the system");
 var localHelp = function(args){
 	var mod = args.trim();
 	var d = "";
-	if(mod == null || mod == ""){
+	if(mod == null || mod === ""){
 		d = "Which plugin would you like help with?\n\n";
 		var modList = [];
 		commands.forEach(function(cmd){
 			var mod = cmd.module;
+			if((mod + "").trim() === "")
+				return;
 			if(modList.indexOf(mod) === -1)
 				modList.push(mod);
 		});
@@ -182,4 +184,6 @@ var localHelp = function(args){
 };
 addCommand("localhelp", localHelp, "Gives a list of commands");
 
-systemMessage("Init.js loaded");
+setTimeout(() => {
+	systemMessage("Init.js loaded successfully");
+}, 5000);
