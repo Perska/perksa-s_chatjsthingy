@@ -60,7 +60,9 @@ window.generateFromSections = function(sects){
 		if(sect === "insertAfter")
 			return;
 		var sectCode = sects[sect];
-		code = code + ("// SECTION " + sect.toUpperCase()) + "\n" + (sectCode.toString() + "\n");
+		code += "// SECTION ";
+		code += sect.toUpperCase() + "\n";
+		code += sectCode.toString() + "\n";
 	}
 	return code;
 };
