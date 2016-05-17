@@ -16,6 +16,9 @@ window.loaded = {
 	Plugins: {}
 };
 
+// Move commands to window...
+window.commands = commands;
+
 // This sends a module message (like a system message, but not centered)
 window.moduleMessage = function(msg){
 	displayMessage({
