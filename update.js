@@ -49,7 +49,7 @@ var verPatch = parseInt(ver[2]);
 
 var latMajor = parseInt(lat[0]);
 var latMinor = parseInt(lat[1]);
-var verPatch = parseInt(lat[2]);
+var latPatch = parseInt(lat[2]);
 
 if(verMajor < latMajor){
 	updateWarn(version, latest);
