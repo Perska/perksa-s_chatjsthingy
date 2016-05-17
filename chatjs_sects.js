@@ -31,6 +31,7 @@ window.splitIntoSections = function(code){
 		}
 		sects[sect] = t.slice(start, end).join("\n");
 	});
+	moduleMessage(sects.boot);
 	return sects;
 };
 
@@ -88,6 +89,6 @@ window.generateLoads = function(sects, plugins){
 	plugins.forEach(function(name){
 		o += "\nloadPlugin(\"" + name + "\");";
 	});
-	sects["loads"] = o;
+	sects["loads"] = o + "\n";
 	return sects;
 };
