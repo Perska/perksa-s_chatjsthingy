@@ -27,22 +27,6 @@ window.moduleMessage = function(msg){
 		"message": msg
 	});
 };
-// This is an all purpose sync request command. Returns the data
-
-window.syncRequest = function(url, data){
-	var x = new XMLHttpRequest;
-	if(data == null){
-		x.open("GET", url + "?t=" + new Date().getTime(), false);
-		x.send();
-	} else {
-		x.open("POST", url + "?t=" + new Date().getTime(), false);
-		x.send(data);
-	}
-	if(x.status === 200)
-		return x.responseText;
-	else
-		return null;
-};
 
 // Here's the star of the show: loadPlugin.
 
@@ -215,7 +199,10 @@ var localHelp = function(args){
 };
 addCommand("localhelp", localHelp, "Gives a list of commands");
 addCommand("testsplit", () => {
-	moduleMessage(JSON.stringify(splitIntoSections(syncRequest("/query/chatJS")), null, "\t"));
+	prompt(null, JSON.stringify(splitIntoSections(syncRequest("/query/chatJS"))));
 }, "Tests splitIntoSections")
+addCommand("testregen", () => {
+	moduleMessage(generateFromSections(JSON.parse(prompt("JSON?"))));
+}), "Tests generateFromSections";
 
 systemMessage("Init.js loaded successfully");

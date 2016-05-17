@@ -34,3 +34,31 @@ window.splitIntoSections = function(code){
 	delete sects.insertAfter;
 	return sects;
 };
+
+// This is an all purpose sync request command. Returns the data
+
+window.syncRequest = function(url, data){
+	var x = new XMLHttpRequest;
+	if(data == null){
+		x.open("GET", url + "?t=" + new Date().getTime(), false);
+		x.send();
+	} else {
+		x.open("POST", url + "?t=" + new Date().getTime(), false);
+		x.send(data);
+	}
+	if(x.status === 200)
+		return x.responseText;
+	else
+		return null;
+};
+
+// This converts an object of sections back into JS compatible with chatJS
+
+window.generateFromSections = function(sects){
+	var code = syncRequest(baseUrl + "bootstrap.js").replace(/^(\/\*.+?\*\/\n).+?$/, "\1");
+	for(var sect in sects){
+		var sectCode = sects[sect];
+		code += "// SECTION " + sect.toUpperCase() + "\n" + sectCode + "\n";
+	}
+	return code;
+};
