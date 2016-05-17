@@ -16,6 +16,14 @@ window.loaded = {
 	Plugins: {}
 };
 
+// This sends a module message (like a system message, but not centered)
+window.moduleMessage = function(msg)
+	displayMessage({
+		"type": "module",
+		"module": "chatjs",
+		"message": msg
+	});
+
 // This is an all purpose sync request command. Returns the data
 
 window.syncRequest = function(url, data){
@@ -126,4 +134,49 @@ window.loadAPI = function(name, mn){
 	}
 }
 
-systemMessage("Init.js loaded successfully!");
+// Now, a simple addCommand function for internal use
+
+var addCommand = function(name, func, desc, mod){
+	var cmd = {
+		command: name,
+		callback: func,
+		description: desc,
+		module: mod || "global"
+	};
+	return commands.push(cmd);
+}
+
+addCommand("loadplugin", loadPlugin, "Loads a plugin from the system");
+
+// A localhelp plugin is very useful
+
+var localHelp = function(args){
+	var mod = args.trim();
+	var d = "";
+	if(mod == null){
+		d = "Which plugin would you like help with?\n\n";
+		var modList = [];
+		commands.forEach(function(cmd){
+			var mod = cmd.module;
+			if(modList.indexOf(mod) === -1)
+				modList.push(mod);
+		});
+		d += modList.join("\n");
+		d += "\n\nRerun localhelp command with a plugin name to see commands for that plugin";
+	} else {
+		d = "Help for " + mod + " plugin:\n\n";
+		var cmds = [];
+		commands.forEach(function(cmd){
+			var m = cmd.module;
+			if(m === mod){
+				var l = "/" + cmd.command + " => " + cmd.description;
+				cmds.push(l);
+			}
+		});
+		if(cmds.length === 0)
+			d += "No commands found.";
+		else
+			d += cmds.join("\n");
+	}
+	moduleMessage(d);
+};
