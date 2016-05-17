@@ -157,6 +157,8 @@ var localHelp = function(args){
 		d = "Which plugin would you like help with?\n\n";
 		var modList = [];
 		commands.forEach(function(cmd){
+			if(cmd.module == null)
+				return;
 			var mod = cmd.module;
 			if((mod + "").trim() === "")
 				return;
