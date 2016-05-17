@@ -29,7 +29,6 @@ window.moduleMessage = function(msg){
 };
 
 // Here's the star of the show: loadPlugin.
-
 window.loadPlugin = function(name){
 	var name = name.trim();
 	if(name == null)
@@ -96,7 +95,6 @@ window.loadPlugin = function(name){
 
 // This is a new addition: unloadPlugin. This removes the commands
 // added by a plugin
-
 window.unloadPlugin = function(name){
 	var name = name.trim();
 	if(name === "")
@@ -127,7 +125,6 @@ window.unloadPlugin = function(name){
 
 // A useful function added this time is loadAPI. It loads resources from a
 // script and returns them.
-
 window.loadAPI = function(name, mn){
 	var name = name.trim();
 	if(name == null)
@@ -167,7 +164,6 @@ window.loadAPI = function(name, mn){
 }
 
 // Now, a simple addCommand function for internal use
-
 var addCommand = function(name, func, desc, mod){
 	var cmd = {
 		command: name,
@@ -182,7 +178,6 @@ addCommand("loadplugin", loadPlugin, "Loads a plugin from the system");
 addCommand("unloadplugin", unloadPlugin, "Unloads a plugin");
 
 // A localhelp plugin is very useful
-
 var localHelp = function(args){
 	var mod = args.trim();
 	var d = "";
@@ -218,4 +213,3 @@ var localHelp = function(args){
 	moduleMessage(d);
 };
 addCommand("localhelp", localHelp, "Gives a list of commands");
-systemMessage("Init.js loaded successfully");

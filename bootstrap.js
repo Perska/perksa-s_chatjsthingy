@@ -14,7 +14,7 @@ window.addEventListener("error", error => {
 });
 
 // SECTION BOOT
-var version = "0.0.1",
+var version = "1.0.0",
 	baseUrl = "http://sbs-chatjs.github.io/",
 	x = new XMLHttpRequest;
 

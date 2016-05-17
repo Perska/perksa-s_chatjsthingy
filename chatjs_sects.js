@@ -7,7 +7,6 @@
 */
 
 // We use splitIntoSections to split everything into... sections...
-
 window.splitIntoSections = function(code){
 	var sects = {};
 	var i = 0;
@@ -35,7 +34,6 @@ window.splitIntoSections = function(code){
 };
 
 // This is an all purpose sync request command. Returns the data
-
 window.syncRequest = function(url, data){
 	var x = new XMLHttpRequest;
 	if(data == null){
@@ -52,7 +50,6 @@ window.syncRequest = function(url, data){
 };
 
 // This converts an object of sections back into JS compatible with chatJS
-
 window.generateFromSections = function(sects){
 	var code = syncRequest(baseUrl + "bootstrap.js").replace(/^(\/\*[\s\S]+?\*\/)[\s\S]+?$/, "$1") + "\n\n";
 	Object.keys(sects).forEach((sect) => {
@@ -67,7 +64,6 @@ window.generateFromSections = function(sects){
 };
 
 // This parses a list of all the loadPlugin occurences in the LOADS section
-
 window.parseLoads = function(sects){
 	var lines = sects["loads"].split("\n");
 	var list = [];
@@ -82,7 +78,6 @@ window.parseLoads = function(sects){
 };
 
 // This regenerates the loadPlugin instances into the LOADS section
-
 window.generateLoads = function(sects, plugins){
 	var o = "// Put your loadPlugin's here";
 	plugins.forEach(function(name){
