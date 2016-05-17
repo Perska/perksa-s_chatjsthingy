@@ -19,7 +19,7 @@ window.splitIntoSections = function(code){
 			sectionPos[s] = ln;
 		}
 	});
-	for(var sect in sectionPos){
+	Object.keys(sectionPos).forEach((sect) => {
 		var start = sectionPos[sect] + 1;
 		var end = t.length;
 		for(var i = start; i < t.length; i++){
@@ -30,8 +30,7 @@ window.splitIntoSections = function(code){
 			}
 		}
 		sects[sect] = t.slice(start, end).join("\n");
-	}
-	delete sects.insertAfter;
+	});
 	return sects;
 };
 
@@ -56,13 +55,13 @@ window.syncRequest = function(url, data){
 
 window.generateFromSections = function(sects){
 	var code = "";//syncRequest(baseUrl + "bootstrap.js").replace(/^(\/\*[\s\S]+?\*\/)[\s\S]+?$/, "$1") + "\n";
-	for(var sect in sects){
+	Object.keys(sects).forEach((sect) => {
 		if(sect === "insertAfter")
 			return;
 		var sectCode = sects[sect];
 		code += "// SECTION ";
 		code += sect.toUpperCase() + "\n";
 		code += sectCode.toString() + "\n";
-	}
+	});
 	return code;
 };
