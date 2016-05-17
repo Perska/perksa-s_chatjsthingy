@@ -65,3 +65,18 @@ window.generateFromSections = function(sects){
 	});
 	return code;
 };
+
+// This parses a list of all the loadPlugin occurences in the LOADS section
+
+window.parseLoads = function(sects){
+	var lines = sects["loads"].split("\n");
+	var list = [];
+	lines.forEach((line) => {
+		var re = /^\s+loadPlugin\(\s+\"(.+?)\"\).+?$/;
+		if(!re.test(line)){
+			return;
+		}
+		list.push(re.exec(line)[1]);
+	});
+	return lines;
+};

@@ -204,5 +204,7 @@ addCommand("testsplit", () => {
 addCommand("testregen", () => {
 	moduleMessage(generateFromSections(JSON.parse(prompt("JSON?"))));
 }), "Tests generateFromSections";
-
+addCommand("testloads", () => {
+	moduleMessage(parseLoads(JSON.parse(prompt("JSON?"))));
+})
 systemMessage("Init.js loaded successfully");
