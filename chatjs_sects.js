@@ -16,7 +16,7 @@ window.splitIntoSections = function(code){
 	t.forEach(function(l, ln){
 		if(l.indexOf("// SECTION ") === 0){
 			var s = /^\/\/ SECTION (.+?)$/.exec(l)[1].toLowerCase();
-			sectionPost[s] = ln;
+			sectionPos[s] = ln;
 		}
 	});
 	for(var sect in pos){

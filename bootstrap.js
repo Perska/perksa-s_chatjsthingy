@@ -9,7 +9,8 @@
 */
 
 window.addEventListener("error", error => {
-	warningMessage("There was an error.\n" + error);
+	warningMessage("There was an error.\n" + error.error);
+	console.error(error.error);
 });
 
 // SECTION BOOT
