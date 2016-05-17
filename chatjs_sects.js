@@ -78,5 +78,5 @@ window.parseLoads = function(sects){
 		}
 		list.push(re.exec(line)[1]);
 	});
-	return lines;
+	return list;
 };
