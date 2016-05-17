@@ -57,8 +57,10 @@ window.syncRequest = function(url, data){
 window.generateFromSections = function(sects){
 	var code = syncRequest(baseUrl + "bootstrap.js").replace(/^(\/\*[\s\S]+?\*\/)[\s\S]+?$/, "\1") + "\n";
 	for(var sect in sects){
-		if(sect.toLowerCase() === "insertafter")
+		systemMessage(sect);
+		if(sect.toLowerCase() === "insertafter"){
 			return;
+		}
 		var sectCode = sects[sect];
 		code += "// SECTION " + sect.toUpperCase() + "\n" + sectCode + "\n";
 	}
