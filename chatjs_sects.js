@@ -72,7 +72,7 @@ window.parseLoads = function(sects){
 	var lines = sects["loads"].split("\n");
 	var list = [];
 	lines.forEach((line) => {
-		var re = /^\s+loadPlugin\(\s+\"(.+?)\"\).+?$/;
+		var re = /^\s*loadPlugin\(\s*\"(.+?)\"\\s*).+?$/;
 		if(!re.test(line)){
 			return;
 		}
