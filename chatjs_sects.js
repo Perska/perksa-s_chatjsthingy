@@ -19,7 +19,7 @@ window.splitIntoSections = function(code){
 			sectionPos[s] = ln;
 		}
 	});
-	for(var sect in pos){
+	for(var sect in sectionPos){
 		var start = sectionPos[sect] + 1;
 		var end = t.length;
 		for(var i = start; i < t.length; i++){
