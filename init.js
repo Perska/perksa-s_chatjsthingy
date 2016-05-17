@@ -205,6 +205,6 @@ addCommand("testregen", () => {
 	moduleMessage(generateFromSections(JSON.parse(prompt("JSON?"))));
 }), "Tests generateFromSections";
 addCommand("testloads", () => {
-	moduleMessage(parseLoads(JSON.parse(prompt("JSON?"))));
+	moduleMessage(parseLoads(JSON.parse(prompt("JSON?"))).toString());
 })
 systemMessage("Init.js loaded successfully");
