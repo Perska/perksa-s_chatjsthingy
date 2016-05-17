@@ -25,7 +25,7 @@ window.splitIntoSections = function(code){
 		for(var i = start; i < t.length; i++){
 			var ln = t[i];
 			if(ln.indexOf("// SECTION") === 0){
-				end = i - start;
+				end = i;
 				break;
 			}
 		}
