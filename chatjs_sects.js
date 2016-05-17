@@ -55,7 +55,8 @@ window.syncRequest = function(url, data){
 // This converts an object of sections back into JS compatible with chatJS
 
 window.generateFromSections = function(sects){
-	var code = syncRequest(baseUrl + "bootstrap.js").replace(/^(\/\*.+?\*\/\n).+?$/, "\1");
+	delete sects.insertAfter;
+	var code = syncRequest(baseUrl + "bootstrap.js").replace(/^(\/\*[\s\S]+?\*\/)[\s\S]+?$/, "\1") + "\n";
 	for(var sect in sects){
 		var sectCode = sects[sect];
 		code += "// SECTION " + sect.toUpperCase() + "\n" + sectCode + "\n";
