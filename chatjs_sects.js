@@ -31,7 +31,6 @@ window.splitIntoSections = function(code){
 		}
 		sects[sect] = t.slice(start, end).join("\n");
 	});
-	moduleMessage(sects.boot);
 	return sects;
 };
 
@@ -62,7 +61,7 @@ window.generateFromSections = function(sects){
 		var sectCode = sects[sect];
 		code += "// SECTION ";
 		code += sect.toUpperCase() + "\n";
-		code += sectCode.toString() + "\n";
+		code += sectCode.toString() + "\n\n";
 	});
 	return code;
 };
@@ -89,6 +88,6 @@ window.generateLoads = function(sects, plugins){
 	plugins.forEach(function(name){
 		o += "\nloadPlugin(\"" + name + "\");";
 	});
-	sects["loads"] = o + "\n";
+	sects["loads"] = o;
 	return sects;
 };
