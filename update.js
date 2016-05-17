@@ -28,7 +28,7 @@ var updateCmd = function(){
 
 // This warns about an update
 var updateWarn = function(cur, lat){
-	warningMessage("There is an update to the chatJS plugin system bootstrap.\nTo update, either copy the contents of <a href=\"" + baseUrl + "bootstrap.js\">bootstrap.js</a> to your chatJS or run /update (which does the update for you, keeping the important stuff intact).\n\nCurrent version: " + ver + "\nLatest version: " + lat);
+	warningMessage("There is an update to the chatJS plugin system bootstrap.\nTo update, either copy the contents of <a href=\"" + baseUrl + "bootstrap.js\">bootstrap.js</a> to your chatJS or run /update (which does the update for you, keeping the important stuff intact).\n\nCurrent version: " + cur + "\nLatest version: " + lat);
 	commands.push({
 		command: "update",
 		callback: updateCmd,
