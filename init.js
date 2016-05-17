@@ -163,6 +163,7 @@ var localHelp = function(args){
 			if(modList.indexOf(mod) === -1)
 				modList.push(mod);
 		});
+		alert(modList);
 		d += modList.join("\n");
 		d += "\n\nRerun localhelp command with a plugin name to see commands for that plugin";
 	} else {
