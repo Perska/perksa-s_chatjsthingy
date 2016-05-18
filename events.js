@@ -14,7 +14,7 @@ window.events = new MicroEvent;
 var oldDispMess = displayMessage;
 displayMessage = function(dat){
 	events.trigger("message", dat);
-	if(dat.type !== "cancel"){
+	if(dat.type === "cancel"){
 		return;
 	}
 	return oldDispMess(dat);
