@@ -1,6 +1,6 @@
 function _info(name) {
   var xhr = new XMLHttpRequest;
-  xhr.open("GET", `${baseUrl}${name}/info.json`);
+  xhr.open("GET", `${baseUrl}plugins/${name}/info.json`);
   xhr.addEventListener("load", function() {
     if(xhr.status == 404) {
       warningMessage("Plugin info not found!");
