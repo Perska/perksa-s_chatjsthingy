@@ -25,7 +25,7 @@ var oldSendMess = sendMessage;
 sendMessage = function(msg, cmd){
 	var m = msg || messageInput.value;
 	var d = {
-		message: msg,
+		message: m,
 		command: cmd
 	}
 	events.trigger("send", d);
