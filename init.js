@@ -69,6 +69,7 @@ window.loadPlugin = function(name){
 		window.loadAPI(name, mod);
 	};`;
 	var code = `(function(){
+	var init = function(){};
 	${data}
 	if(typeof Socket != null)
 		init();
