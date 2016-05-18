@@ -14,6 +14,7 @@ function _info(name) {
       var message = `${json.name} (${name})
         ${json.description}
         Author: ${json.author}
+        Loaded? ${(name in window.loaded["Plugins"]) ? "Yes" : "No"}
         *****
         
         Commands
@@ -21,6 +22,7 @@ function _info(name) {
         `;
       if(json.commands) {
         json.commands.forEach(cmd => {
+          cmd.command = (cmd.command.charAt(0) !== "/") ? `/${cmd.command}` : cmd.command;
           message += `${cmd.command}
           ${cmd.description}
           -----
