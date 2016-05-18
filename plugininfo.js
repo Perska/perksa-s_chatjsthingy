@@ -29,6 +29,7 @@ function _info(name) {
       } else {
         message += "This plugin has no commands."
       }
+      moduleMessage(message);
     }
   });
   xhr.send();
