@@ -29,5 +29,5 @@ sendMessage = function(msg, cmd){
 		command: cmd
 	}
 	events.trigger("send", d);
-	return oldSendMessage(d.message, d.command);
+	return oldSendMess(d.message, d.command);
 };
