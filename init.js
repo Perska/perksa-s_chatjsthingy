@@ -7,9 +7,6 @@
 	By ShadowCX11, slackerSnail - 2016
 */
 
-// We have an event handler here for message events and such
-window.event = new MicroEvent;
-
 // This is used to keep track of loaded plugins and APIs
 window.loaded = {
 	APIs: {},

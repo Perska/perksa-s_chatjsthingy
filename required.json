@@ -3,5 +3,6 @@
 	"chatjs_sects.js",
 	"update.js",
 	"init.js",
-	"plugininfo.js"
+	"plugininfo.js",
+	"events.js"
 ]
