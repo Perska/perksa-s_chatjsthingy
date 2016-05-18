@@ -8,11 +8,6 @@
 	By ShadowCX11, slackerSnail - 2016
 */
 
-window.addEventListener("error", error => {
-	warningMessage("There was an error.\n" + error.error);
-	console.error(error.error);
-});
-
 // SECTION BOOT
 var version = "1.0.0",
 	baseUrl = "http://sbs-chatjs.github.io/",
