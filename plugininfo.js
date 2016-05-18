@@ -1,6 +1,12 @@
+/*
+ * Plugin Info
+ * by slackerSnail
+ * Required script which lets users look up an info sheet for a given plugin.
+ */
+
 function _info(name) {
   var xhr = new XMLHttpRequest;
-  xhr.open("GET", `${baseUrl}plugins/${name}/info.json`);
+  xhr.open("GET", `${baseUrl}plugins/${name}/info.json?t=${(new Date).getTime()}`);
   xhr.addEventListener("load", () => {
     if(xhr.status == 404) {
       warningMessage("Plugin info not found!");
