@@ -35,7 +35,7 @@ function _info(name) {
 }
 
 commands.push({
-  command: "plugininfo"
+  command: "plugininfo",
   callback: arg => {
     var params = quickParamParse(arg);
     switch(params.length) {
