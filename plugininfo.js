@@ -13,10 +13,22 @@ function _info(name) {
       }
       var message = `${json.name} (${name})
         ${json.description}
+        Author: ${json.author}
         *****
         
         Commands
-        =====`;
+        =====
+        `;
+      if(json.commands) {
+        json.commands.forEach(cmd => {
+          message += `${cmd.command}
+          ${cmd.description}
+          -----
+          `;
+        });
+      } else {
+        message += "This plugin has no commands."
+      }
     }
   });
   xhr.send();
