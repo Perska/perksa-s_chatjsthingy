@@ -44,9 +44,15 @@ function _info(name) {
 }
 
 function _listInstalled() {
-  var message = "Plugins currently installed:";
-  for(let plug of Object.keys(window.loaded["Plugins"]).sort()) {
-    message += `\n- ${plug}`;
+  const names = Object.keys(window.loaded["Plugins"]).sort();
+  if(names.length) {
+    let message = "Plugins currently installed:";
+    for(let plug of names) {
+      message += `\n- ${plug}`;
+    }
+    moduleMessage(message);
+  } else {
+    moduleMessage("No plugins installed.");
   }
 }
 
