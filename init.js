@@ -142,7 +142,7 @@ window.loadAPI = function(name, mn){
 		url += "apis/" + name + ".js";
 	}
 	var code = syncRequest(url);
-	if(code == null)
+	if(code == null || code === "")
 		return null;
 	cd = `function loadAPI(name){
 	var mod = "${mn}";
@@ -152,10 +152,9 @@ window.loadAPI = function(name, mn){
 	${code}
 	
 })();`;
-	alert(cd);
 	try {
 		var ret = eval(cd);
-		window.loaded["APIs"][name] = code;
+		window.loaded["APIs"][name] = cd;
 		return ret;
 	} catch(e){
 		return e;

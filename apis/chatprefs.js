@@ -24,4 +24,5 @@ ChatPreferences.prototype.list = function(){
 	};
 	return list || null;
 };
+alert("...");
 return ChatPreferences;
