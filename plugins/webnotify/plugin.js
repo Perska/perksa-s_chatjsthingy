@@ -152,6 +152,7 @@ var notifyAlias = function(a){
 					break;
 				default:
 					warningMessage("Action \"" + arg[0] + "\" not recognized");
+					break;
 			}
 			break;
 		case 1:
