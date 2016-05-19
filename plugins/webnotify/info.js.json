@@ -1,0 +1,16 @@
+{
+	"name": "Web Notify",
+	"description": "Allows showing a notification when a message is recieved",
+	"author": "ShadowCX11",
+	"commands": [
+		{
+			"command": "notify",
+			"description": "Changes when to show notifications"
+		},
+		{
+			"command": "notifyalias",
+			"description": "Adds/removes aliases for /notify name"
+		}
+	],
+	"script": "plugin.js"
+}

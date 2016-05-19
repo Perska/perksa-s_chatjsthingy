@@ -64,7 +64,9 @@ window.loadPlugin = function(name){
 	function loadAPI(name){
 		var mod = "${module}";
 		return window.loadAPI(name, mod);
-	};`;
+	};
+	var plugin = loaded["Plugins"][name] = new MicroEvent;
+	`;
 	var code = `(function(){
 	var init = function(){};
 	${data}
@@ -75,7 +77,6 @@ window.loadPlugin = function(name){
 })();`;
 	try {
 		eval(extras + "\n" + code);
-		loaded["Plugins"][name] = extras + "\n" + code;
 		if(this.command)
 			systemMessage("Plugin \"" + name + "\" loaded successfully!");
 		if(ninList){
@@ -102,6 +103,7 @@ window.unloadPlugin = function(name){
 			warningMessage("Plugin \"" + name + "\" not loaded.");
 		return;
 	}
+	window.loaded["Plugins"][name].trigger("unload");
 	var chatJS = splitIntoSections(syncRequest("/query/chatJS"));
 	var pluginList = parseLoads(chatJS);
 	if(pluginList.indexOf(name) !== -1){

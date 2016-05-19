@@ -24,4 +24,8 @@ ChatPreferences.prototype.list = function(){
 	};
 	return list || null;
 };
+ChatPreferences.prototype.exists = function(name){
+	return localStorage.getItem(this._namespace + "-" + name) != null ? true : false;
+};
+
 return ChatPreferences;
