@@ -1,0 +1,9 @@
+{
+	"name": "RunJS command",
+	"description": "Adds a /runjs command for testing",
+	"author": "ShadowCX11, with suggestions by Trinitro21 added",
+	"commands": [{
+		"command": "runjs",
+		"description": "Runs JS provided as an argument, or prompts"
+	}]
+}
