@@ -154,7 +154,7 @@ window.loadAPI = function(name, mn){
 })();`;
 	alert(cd);
 	try {
-		var ret = eval(code);
+		var ret = eval(cd);
 		window.loaded["APIs"][name] = code;
 		return ret;
 	} catch(e){
