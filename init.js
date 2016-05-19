@@ -124,6 +124,7 @@ window.unloadPlugin = function(name){
 // A useful function added this time is loadAPI. It loads resources from a
 // script and returns them.
 window.loadAPI = function(name, mn){
+	alert(name)
 	name = name.trim();
 	if(name == ""){
 		return null;
