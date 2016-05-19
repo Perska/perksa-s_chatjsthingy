@@ -20,7 +20,7 @@ ChatPreferences.prototype.list = function(){
 	for(var i = 0; i < localStorage.length; i++){
 		var name = localStorage.key(i);
 		if(name.indexOf(this._namespace + "-") === 0)
-			list.push(name.replace(this._namespace + "-", "");
+			list.push(name.replace(this._namespace + "-", ""));
 	};
 	return list || null;
 };
