@@ -129,6 +129,11 @@ var notifyAlias = function(a){
 		return warningMessage("Not enough arguments. Possible actions are: add [name], remove [name], delete [name], list");
 	}
 	switch(args.length){
+		case 1:
+			if(args[1] === "list"){
+				moduleMessage("List of alternate names [" + altnames.length + "]:\n\n" + altnames.join("\n"));
+			}
+			break;
 		case 2:
 			switch(args[0]){
 				case "add":
@@ -153,11 +158,6 @@ var notifyAlias = function(a){
 				default:
 					warningMessage("Action \"" + arg[0] + "\" not recognized");
 					break;
-			}
-			break;
-		case 1:
-			if(args[1] === "list"){
-				moduleMessage("List of alternate names [" + altnames.length + "]:\n\n" + altnames.join("\n"));
 			}
 			break;
 	}
