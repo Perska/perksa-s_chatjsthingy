@@ -125,7 +125,7 @@ window.unloadPlugin = function(name){
 // script and returns them.
 window.loadAPI = function(name, mn){
 	var name = name.trim();
-	if(name == null)
+	if(name == null || name === "")
 		return;
 	if(name in window.loaded["APIs"]){
 		try {
@@ -151,7 +151,8 @@ window.loadAPI = function(name, mn){
 (function(){
 	${code}
 	
-})();`;
+})();
+	alert("hi")`;
 	try {
 		var ret = eval(cd);
 		window.loaded["APIs"][name] = cd;
