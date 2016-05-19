@@ -177,7 +177,7 @@ var notifyPrefs = function(arg){
 			break;
 		case "name":
 			when = 2;
-			systemMessage("Notifications will now be shown when the page is in the background and a message is recieved containing one of these names:\n" + [username].concat(altNames).join(", ") + ".");
+			systemMessage("Notifications will now be shown when the page is in the background and a message is recieved containing one of these names:\n" + [username].concat(altnames).join(", ") + ".");
 			break;
 		case "mention":
 			when = 3;
