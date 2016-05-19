@@ -1,7 +1,7 @@
 /*
  * Plugin Info
  * by slackerSnail
- * Required script which lets users look up an info sheet for a given plugin.
+ * Funcs for plugin information.
  */
 
 function _info(name) {
@@ -43,6 +43,13 @@ function _info(name) {
   xhr.send();
 }
 
+function _listInstalled() {
+  var message = "Plugins currently installed:";
+  for(let plug of Object.keys(window.loaded["Plugins"]).sort()) {
+    message += `\n- ${plug}`;
+  }
+}
+
 commands.push({
   command: "plugininfo",
   callback: arg => {
@@ -60,5 +67,22 @@ commands.push({
     }
   },
   description: "Gets information about the named plugin.",
+  module: "global"
+});
+
+commands.push({
+  command: "myplugins",
+  callback: arg => {
+    var params = quickParamParse(arg);
+    switch(params.length) {
+      case 0:
+        _listInstalled();
+        break;
+      default:
+        warningMessage("Doesn't accept args!");
+        break;
+    }
+  },
+  description: "Lists the plugins you have installed.",
   module: "global"
 });
