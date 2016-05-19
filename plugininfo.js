@@ -43,6 +43,7 @@ function _info(name) {
   xhr.send();
 }
 
+/*
 function _listInstalled() {
   const names = Object.keys(window.loaded["Plugins"]).sort();
   if(names.length) {
@@ -55,6 +56,7 @@ function _listInstalled() {
     moduleMessage("No plugins installed.");
   }
 }
+*/
 
 commands.push({
   command: "plugininfo",
@@ -76,6 +78,7 @@ commands.push({
   module: "global"
 });
 
+/*
 commands.push({
   command: "myplugins",
   callback: arg => {
@@ -92,3 +95,4 @@ commands.push({
   description: "Lists the plugins you have installed.",
   module: "global"
 });
+*/
