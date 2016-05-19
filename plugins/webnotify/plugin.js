@@ -130,9 +130,10 @@ var notifyAlias = function(a){
 	}
 	switch(args.length){
 		case 1:
-			if(args[1] === "list"){
+			if(args[0] === "list")
 				moduleMessage("List of alternate names [" + altnames.length + "]:\n\n" + altnames.join("\n"));
-			}
+			else
+				warningMessage("Action \"" + arg[0] + "\" not recognized");
 			break;
 		case 2:
 			switch(args[0]){
