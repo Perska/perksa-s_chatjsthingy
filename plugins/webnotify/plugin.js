@@ -125,6 +125,9 @@ var onmsg = function(msg){
 };
 var notifyAlias = function(a){
 	var args = a.trim().split(" ");
+	if(a.trim().length === 0){
+		return warningMessage("Not enough arguments. Possible actions are: add [name], remove [name], delete [name], list");
+	}
 	switch(args.length){
 		case 2:
 			switch(args[0]){
@@ -156,8 +159,6 @@ var notifyAlias = function(a){
 				moduleMessage("List of alternate names [" + altnames.length + "]:\n\n" + altnames.join("\n"));
 			}
 			break;
-		default:
-			warningMessage("Not enough arguments. Possible actions are: add [name], remove [name], delete [name], list");
 	}
 	return;
 };

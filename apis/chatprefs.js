@@ -13,7 +13,7 @@ ChatPreferences.prototype.set = function(name, val){
 	return localStorage.setItem(this._namespace + "-" + name, JSON.stringify(val));
 };
 ChatPreferences.prototype.get = function(name){
-	return localStorage.getItem(this._namespace + "-" + name);
+	return JSON.parse(localStorage.getItem(this._namespace + "-" + name) || "null");
 };
 ChatPreferences.prototype.list = function(){
 	var list = [];
