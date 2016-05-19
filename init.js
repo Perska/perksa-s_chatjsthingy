@@ -128,13 +128,34 @@ window.loadAPI = function(name, mn){
 	if(name == ""){
 		return null;
 	}
+	if(window.loaded["APIs"][name] != null){
+		return eval(window.loaded["APIs"][name]);
+	}
 	var url = baseUrl;
 	if(name[0] === "@"){
 		url += "plugins/" + mn + "/" + name.substr(1) + ".js";
 	} else {
 		url += "apis/" + name + ".js";
 	}
-	var c = syncRequest(url)
+	var c = syncRequest(url);
+	if(c == null)
+		return null;
+	var code = `var loadAPI = function(name){
+	return window.loadAPI(name, "${name}");
+}
+(function(){
+${c}
+
+})();
+`;
+	try {
+		var ret = eval(code);
+		window.loaded["APIs"][name] = code;
+		return ret;
+	} catch(e){
+		console.error(e);
+		return null;
+	}
 };
 
 // Now, a simple addCommand function for internal use
