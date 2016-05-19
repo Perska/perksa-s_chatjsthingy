@@ -63,7 +63,7 @@ window.loadPlugin = function(name){
 	};
 	function loadAPI(name){
 		var mod = "${module}";
-		window.loadAPI(name, mod);
+		return window.loadAPI(name, mod);
 	};`;
 	var code = `(function(){
 	var init = function(){};
@@ -124,43 +124,18 @@ window.unloadPlugin = function(name){
 // A useful function added this time is loadAPI. It loads resources from a
 // script and returns them.
 window.loadAPI = function(name, mn){
-	var name = name.trim();
-	if(name == null || name === "")
-		return;
-	if(name in window.loaded["APIs"]){
-		try {
-			return eval(window.loaded["APIs"][name]);
-		} catch(e){
-			return e;
-		}
+	name = name.trim();
+	if(name == ""){
+		return null;
 	}
 	var url = baseUrl;
 	if(name[0] === "@"){
-		name = name.substr(1);
-		url += "plugins/" + mn + "/" + name + ".js";
+		url += "plugins/" + mn + "/" + name.substr(1) + ".js";
 	} else {
 		url += "apis/" + name + ".js";
 	}
-	var code = syncRequest(url);
-	if(code == null || code === "")
-		return null;
-	cd = `function loadAPI(name){
-	var mod = "${mn}";
-	loadAPI(name, mod);
+	var c = syncRequest(url)
 };
-(function(){
-	${code}
-	
-})();
-	alert("hi")`;
-	try {
-		var ret = eval(cd);
-		window.loaded["APIs"][name] = cd;
-		return ret;
-	} catch(e){
-		return e;
-	}
-}
 
 // Now, a simple addCommand function for internal use
 var addCommand = function(name, func, desc, mod){
