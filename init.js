@@ -152,6 +152,7 @@ window.loadAPI = function(name, mn){
 	${code}
 	
 })();`;
+	alert(code);
 	try {
 		var ret = eval(code);
 		window.loaded["APIs"][name] = code;
