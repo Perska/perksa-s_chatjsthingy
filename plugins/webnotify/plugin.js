@@ -199,7 +199,7 @@ var init = function(){
 	addCommand("notifyalias", notifyAlias, "Add/remove an alias for /notify name");
 };
 
-plugin.bind("uninit", function(){
+plugin.bind("unload", function(){
 	events.unbind("message", onmsg);
 	systemMessage("Bye!");
 });
