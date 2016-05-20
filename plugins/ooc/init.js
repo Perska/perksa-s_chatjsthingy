@@ -101,4 +101,4 @@ events.bind("message", function(msg){
 addCommand("ooc",function(){
  oocbot=!oocbot;
  systemMessage(oocname+" bot is now "+(oocbot?"on":"off"));
-}"Toggles the "+oocname+" bot");
+}, "Toggles the "+oocname+" bot");
