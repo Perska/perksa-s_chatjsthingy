@@ -17,7 +17,7 @@ if(!prefs.exists("when") || !prefs.exists("altnames")){
 }
 
 var unescape = function(str){
-	var s = new document.createElement("span");
+	var s = document.createElement("span");
 	s.innerHTML = str;
 	return s.textContent;
 };
