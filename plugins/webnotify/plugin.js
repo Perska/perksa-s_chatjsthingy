@@ -16,6 +16,12 @@ if(!prefs.exists("when") || !prefs.exists("altnames")){
 	prefs.set("altnames", []);
 }
 
+var unescape = function(str){
+	var s = new document.createElement("span");
+	s.innerHTML = str;
+	return s.textContent;
+};
+
 var when     = prefs.get("when"),
 	altnames = prefs.get("altnames"),
 	away     = false;
@@ -68,7 +74,7 @@ var userIgnored = function(uid){
 };
 var notify = function(title, message, icon){
 	var n = new Notification(title, {
-		body: message,
+		body: unescape(message),
 		icon: icon
 	});
 	setTimeout(n.close.bind(n), 3000);
