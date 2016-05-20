@@ -1,0 +1,16 @@
+{
+	"name": "Outofcon.txt bot",
+	"description": "Creates a bot that replies to PMs with quotes",
+	"author": "Trinitro21",
+	"commands": [
+		{
+			"command": "ooc",
+			"description": "Toggles the bot"
+		},
+		{
+			"command": "outofcon.txt/user-defined",
+			"description": "Triggers the bot locally"
+		}
+	],
+	"script": "init.js"
+}

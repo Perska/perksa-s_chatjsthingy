@@ -1,0 +1,104 @@
+String.prototype.nth = function(pattern, n) {
+  var i = -1;
+  while (n-- && i++ < this.length) {
+    i = this.indexOf(pattern, i);
+    if (i < 0) break;
+  }
+  return i;
+};
+var oocdef=true;
+if(typeof oocbot=="undefined"){var oocbot=true;}
+if(typeof oocname=="undefined"){var oocname="outofcon.txt";}
+if(typeof ooc=="undefined"){oocdef=false;var ooc="";}
+function oocbotfunc(param){
+  var ind;
+  var out;
+  if(param==" count"){
+    ind=(ooc.match(/>>/g)||[]).length;
+    out=ind+" quotes";
+  }else if(param.startsWith(" search ")){
+    var len=(ooc.match(/>>/g)||[]).length;
+    ind=0;
+    var exiting=false;
+    var text=param.substring(" search ".length,param.length);
+    var quote;
+    do{
+      ind++;
+      var nn=ooc.nth(">>",ind);
+      var n=ooc.nth(">>",ind+1);
+      quote=ooc.substring((nn!=-1?nn:ooc.length+1),(n!=-1?n:ooc.length+1)-1);
+      if(ind>len){
+        exiting=true;
+        out='"'+text+'" was not found';
+      }else if(new RegExp(text,"ig").test(quote)){
+        exiting=true;
+        out='"'+text+'" found at quote '+(ind-1)+"\n"+quote;
+      }
+    }while(!exiting);
+  }else{
+    if(/ [0-9]+/g.test(param)){
+      ind=Number(param.substring(1,param.length));
+      ind++;
+      ind=(ind>(ooc.match(/>>/g)||[]).length?1:ind);
+      ind=(ind<1?1:ind);
+    }else{
+      ind=Math.floor(Math.random()*(ooc.match(/>>/g)||[]).length);
+    }
+    var nn=ooc.nth(">>",ind);
+    var n=ooc.nth(">>",ind+1);
+    if(nn==-1 && n==-1){nn=ooc.nth(">>",1);n=ooc.nth(">>",2);}
+    out=ooc.substring((nn!=-1?nn:ooc.length+1),(n!=-1?n:ooc.length+1)-1);
+  }
+  return out;
+}
+addCommand(oocname,function(param){
+  var messageJSON = { "type" : "module", "message" : oocbotfunc(param) };
+  displayMessage(messageJSON);
+},"Calls the "+oocname+" bot locally");
+/*addMessageEvent(function(messageElement){
+ var userstuff=messageElement.querySelector("figure");
+ if(userstuff!=null){
+  var button=document.createElement("button");
+  button.onclick="addquote(this.parentNode.parentNode)";
+  button.value="Add quote to "+oocname;
+  userstuff.appendChild(button);
+ }
+});
+addCommand("addquote",function(param){
+ var n=param.substring(1,param.length).split(" ")[0];
+ var c=param.substring(n.length+2,param.length);
+ updatejs(n,c);
+},"Adds a quote to the "+oocname+" bot");
+function addquote(mess){
+ var n=mess.querySelector("figure").querySelector("figcaption").innerHTML+mess.querySelector("figure").querySelector("user-rank").innerHTML;
+ var c=mess.querySelector("p").innerHTML;
+ updatejs(n,c);
+}
+function updatejs(n,c){
+ var js=syncRequest("/query/chatJS");
+ js+="\n"+(oocdef?"":"var ooc=\"\";\n")+"ooc+=\">>"+n+"\\n\\\n"+c+"\";";
+ var data = new FormData;
+ data.append("chatJS", js);
+ syncRequest("/query/savesettings", data);
+ ooc+=">>"+n+"\n"+c;
+ systemMessage("Quote "+(ooc.match(/>>/g)||[]).length+" added!\n>>"+n+"\n"+c);
+}*/
+events.bind("message", function(msg){
+  if(oocbot){
+    if(msg.type=="module"){
+      if(msg.module=="pm"){
+        if(!msg.message.startsWith(document.querySelector("[data-username]").dataset.username)){
+          var a=msg.message.indexOf(oocname);
+          if(a>=0){
+            var json = { 'type': 'message', 'text': "/pm "+msg.message.split(" ")[0]+" "+oocbotfunc(msg.message.substring(a+oocname.length,msg.message.length)), 'key': auth, 'tag': 'offtopic' };
+            Socket.send(JSON.stringify(json));
+          }
+        }
+      }
+    }
+  }
+});
+addCommand("ooc",function(){
+ oocbot=!oocbot;
+ systemMessage(oocname+" bot is now "+(oocbot?"on":"off"));
+}"Toggles the "+oocname+" bot");
