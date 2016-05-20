@@ -9,7 +9,7 @@
 */
 
 // SECTION BOOT
-var version = "1.0.0",
+var version = "2.0.0",
 	baseUrl = "http://sbs-chatjs.github.io/",
 	x = new XMLHttpRequest;
 
