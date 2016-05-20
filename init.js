@@ -183,7 +183,7 @@ var localHelp = function(args){
 		var modList = [];
 		commands.forEach(function(cmd){
 			if(cmd.module == null)
-				return;
+				cmd.module = "builtin";
 			var mod = cmd.module;
 			if((mod + "").trim() === "")
 				return;
