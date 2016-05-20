@@ -198,3 +198,8 @@ var init = function(){
 	addCommand("notify", notifyPrefs, "Change when a notification is shown");
 	addCommand("notifyalias", notifyAlias, "Add/remove an alias for /notify name");
 };
+
+plugin.bind("uninit", function(){
+	events.unbind("message", onmsg);
+	systemMessage("Bye!");
+});
