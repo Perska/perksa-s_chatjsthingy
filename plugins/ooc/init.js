@@ -8,9 +8,9 @@ setTimeout(function(){
   return i;
  };
  var oocdef=true;
- if(typeof oocbot=="undefined"){var oocbot=true;}
- if(typeof oocname=="undefined"){var oocname="outofcon.txt";}
- if(typeof ooc=="undefined"){oocdef=false;var ooc="";}
+ if(typeof oocbot=="undefined"){oocbot=true;}
+ if(typeof oocname=="undefined"){oocname="outofcon.txt";}
+ if(typeof ooc=="undefined"){oocdef=false;ooc="";}
  function oocbotfunc(param){
   var ind;
   var out;
@@ -103,4 +103,4 @@ setTimeout(function(){
   oocbot=!oocbot;
   systemMessage(oocname+" bot is now "+(oocbot?"on":"off"));
  },"Toggles the "+oocname+" bot");
-},500);
+},5000);
