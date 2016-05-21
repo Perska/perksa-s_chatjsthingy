@@ -31,7 +31,7 @@ var updateCmd = function(){
 		});
 	Object.keys(chatJS)
 		.forEach(function(k){
-			if(("-" + k) in bootstrap)
+			if("-"+k in bootstrap)
 				return;
 			if(!k in njs)
 				njs[k] = chatJS[k];
