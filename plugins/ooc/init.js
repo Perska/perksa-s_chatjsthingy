@@ -64,9 +64,8 @@ setTimeout(function(){
    var n=mess.querySelector("figcaption").innerHTML+mess.querySelector("user-rank").innerHTML;
    var c="";
    [].slice.call(mess.querySelectorAll("p")).forEach(function(i){
-    c+="\n"+i.innerHTML.replace(/<br>/g,"\n").replace(/<\/?a[^>]*>/g,"");
+    c+=(c.length>0?"\n":"")+i.innerHTML.replace(/<br(></br)?>/g,"\n").replace(/<\/?a[^>]*>/g,"");
    });
-   c=c.substring(1,c.length);
    updatejs(n,c);
   };
  }
