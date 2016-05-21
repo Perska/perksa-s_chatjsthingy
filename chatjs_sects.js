@@ -28,7 +28,7 @@ window.splitIntoSections = function(code){
 				break;
 			}
 		}
-		sects[sect] = t.slice(start, end).join("\n");
+		sects[sect] = t.slice(start, end).join("\n").trim();
 	});
 	return sects;
 };
