@@ -15,11 +15,10 @@ setTimeout(function(){
  function oocbotfunc(param){
   var ind;
   var out;
+  var len=ooc.split(">>", -1).length-1;
   if(param==" count"){
-   ind=(ooc.match(/>>/g)||[]).length;
-   out=ind+" quotes";
+   out=len+" quotes";
   }else if(param.startsWith(" search ")){
-   var len=(ooc.match(/>>/g)||[]).length;
    ind=0;
    var exiting=false;
    var text=param.substring(" search ".length,param.length);
@@ -41,10 +40,10 @@ setTimeout(function(){
    if(/ [0-9]+/g.test(param)){
     ind=Number(param.substring(1,param.length));
     ind++;
-    ind=(ind>(ooc.match(/>>/g)||[]).length?1:ind);
+    ind=(ind>len?1:ind);
     ind=(ind<1?1:ind);
    }else{
-    ind=Math.floor(Math.random()*(ooc.match(/>>/g)||[]).length)+1;
+    ind=Math.floor(Math.random()*len)+1;
    }
    var nn=ooc.nth(">>",ind);
    var n=ooc.nth(">>",ind+1);
@@ -72,7 +71,7 @@ setTimeout(function(){
   window.addquote=function(mess){
    var n=mess.querySelector("figcaption").innerHTML+mess.querySelector("user-rank").innerHTML;
    var c="";
-   [].slice.call(mess.querySelectorAll("p")).forEach(function(i){c+="\n"+i.innerHTML;});
+   [].slice.call(mess.querySelectorAll("p")).forEach(function(i){c+="\n"+i.innerHTML.replace(/\<br\>/g,"\n").replace(/\<a.*\>/g,"");});
    c=c.substring(1,c.length);
    updatejs(n,c);
   };
@@ -84,11 +83,11 @@ setTimeout(function(){
  },"Adds a quote to the "+oocname+" bot");
  window.updatejs=function(n,c){
   var js=syncRequest("/query/chatJS");
-  js+="\nooc"+(oocdef?"+=\"\\n":"=\"")+">>"+n+"\\n\\\n"+c.replace(/\"/g,"\\\"").replace(/\<br\>/g,"\\n\\\n").replace(/\<a.*\>/g,"")+"\";";
+  js+="\nooc"+(oocdef?"+=\"\\n":"=\"")+">>"+n+"\\n\\\n"+c.replace(/\"/g,"\\\"")+"\";";
   var data = new FormData;
   data.append("chatJS", JSON.stringify(js));
   syncRequest("/query/savesettings", data);
-  ooc+=(oocdef?"\n":"")+">>"+n+"\n"+c.replace(/\<br\>/g,"\n").replace(/\<a.*\>/g,"");
+  ooc+=(oocdef?"\n":"")+">>"+n+"\n"+c;
   var messageJSON = { "type" : "module", "message" : "Quote "+((ooc.match(/>>/g)||[]).length-1)+" added!\n>>"+n+"\n"+c };
   displayMessage(messageJSON);
  };
