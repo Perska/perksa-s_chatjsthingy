@@ -87,7 +87,7 @@ setTimeout(function(){
   data.append("chatJS", JSON.stringify(js));
   syncRequest("/query/savesettings", data);
   ooc+=">>"+n+"\n"+c;
-  var messageJSON = { "type" : "module", "message" : "Quote "+(ooc.match(/>>/g)||[]).length+" added!\n>>"+n+"\n"+c };
+  var messageJSON = { "type" : "module", "message" : "Quote "+((ooc.match(/>>/g)||[]).length-1)+" added!\n>>"+n+"\n"+c };
   displayMessage(messageJSON);
  };
  events.bind("message", function(msg){
