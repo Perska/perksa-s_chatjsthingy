@@ -62,7 +62,7 @@ setTimeout(function(){
    var userstuff=messageElement.querySelector("figure");
    if(userstuff!=null){
     var button=document.createElement("button");
-    button.onclick="addquote(this.parentNode.parentNode)";
+    button.onClick="addquote(this.parentNode.parentNode)";
     button.innerHTML="Add quote to "+oocname;
     userstuff.appendChild(button);
    }
@@ -81,7 +81,7 @@ setTimeout(function(){
    var js=syncRequest("/query/chatJS");
    js+="\n"+(oocdef?"":"ooc=\"\";\n")+"ooc+=\">>"+n+"\\n\\\n"+c+"\";";
    var data = new FormData;
-   data.append("chatJS", js);
+   data.append("chatJS", JSON.stringify(js));
    syncRequest("/query/savesettings", data);
    ooc+=">>"+n+"\n"+c;
    systemMessage("Quote "+(ooc.match(/>>/g)||[]).length+" added!\n>>"+n+"\n"+c);
