@@ -62,7 +62,7 @@ setTimeout(function(){
    var userstuff=messageElement.querySelector("figure");
    if(userstuff!=null){
     var button=document.createElement("button");
-    button.onClick="addquote(this.parentNode.parentNode)";
+    button.onclick="addquote(this.parentNode.parentNode)";
     button.innerHTML="Add quote to "+oocname;
     userstuff.appendChild(button);
    }
@@ -72,7 +72,7 @@ setTimeout(function(){
    var c=param.substring(n.length+2,param.length);
    updatejs(n,c);
   },"Adds a quote to the "+oocname+" bot");
-  function addquote(mess){
+  window.addquote=function(mess){
    var n=mess.querySelector("figure").querySelector("figcaption").innerHTML+mess.querySelector("figure").querySelector("user-rank").innerHTML;
    var c=mess.querySelector("p").innerHTML;
    updatejs(n,c);
