@@ -11,7 +11,7 @@ window.globalStorage = {};
 
 var getStorage = function(){
 	var data = getChatJS()["globaldata"];
-	var d = /^[\s\S]*?\/\*START([\s\S]+?)END\*\//i.exec(data)[1];
+	var d = /^[\s\S]*?\/\*START([\s\S]+)END\*\//i.exec(data)[1];
 	console.log(d);
 	return JSON.parse(d.trim());
 };
