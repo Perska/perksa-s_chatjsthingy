@@ -17,7 +17,7 @@ var getStorage = function(){
 };
 
 var setStorage = function(obj){
-	var d = JSON.stringify(obj, null, "\t").replace(/\n/g, "\n//");
+	var d = "//" + JSON.stringify(obj, null, "\t").replace(/\n/g, "\n//");
 	var chatJS = getChatJS();
 	chatJS["globaldata"] = "//START\n" + d + "\n//END";
 	return uploadChatJS(chatJS);
