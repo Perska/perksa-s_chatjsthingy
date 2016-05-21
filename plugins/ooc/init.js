@@ -58,7 +58,7 @@ setTimeout(function(){
   displayMessage(messageJSON);
  },"Calls the "+oocname+" bot locally");
  if(oocbuttons){
-  addMessageEvent(function(messageElement){
+  window.addquoteapplier=function(messageElement){
    var userstuff=messageElement.querySelector("figure");
    if(userstuff!=null){
     var b=document.createElement("button");
@@ -66,7 +66,9 @@ setTimeout(function(){
     b.innerHTML="Add quote to "+oocname;
     userstuff.appendChild(b);
    }
-  });
+  };
+  document.querySelectorAll("li").forEach(funtion(messageElement){addquoteapplier(messageElement);});
+  addMessageEvent(function(messageElement){addquoteapplier(messageElement);});
   addCommand("addquote",function(param){
    var n=param.substring(1,param.length).split(" ")[0];
    var c=param.substring(n.length+2,param.length);
