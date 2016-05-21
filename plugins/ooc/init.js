@@ -62,7 +62,7 @@ setTimeout(function(){
    var userstuff=messageElement.querySelector("figure");
    if(userstuff!=null){
     var b=document.createElement("button");
-    b.onclick=addquote(this.parentNode.parentNode);
+    b.onclick=addquote(b.parentNode.parentNode);
     b.innerHTML="Add quote to "+oocname;
     userstuff.appendChild(b);
    }
