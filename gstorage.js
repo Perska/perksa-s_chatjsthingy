@@ -13,7 +13,7 @@ var getStorage = function(){
 	var data = getChatJS()["globaldata"];
 	var d = /^[\s\S]*?\/\*START([\s\S]+?)END\*\//i.exec(data)[1];
 	console.log(d);
-	return JSON.parse(data.trim());
+	return JSON.parse(d.trim());
 };
 
 var setStorage = function(obj){
