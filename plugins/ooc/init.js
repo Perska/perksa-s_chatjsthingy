@@ -62,7 +62,8 @@ setTimeout(function(){
    var userstuff=messageElement.querySelector("figure");
    if(userstuff!=null){
     var b=document.createElement("button");
-    b.onclick="addquote(this.parentNode.parentNode)";
+	//very hacky way to do this as b.onclick="addquote(this.parentNode.parentNode)"; wasn't working for some reason
+    b.outerHTML="<button onclick=\"addquote(this.parentNode.parentNode)\""+b.outerHTML.substring(7,b.outerHTML.length);
     b.innerHTML="Add quote to "+oocname;
     userstuff.appendChild(b);
    }
@@ -107,4 +108,4 @@ setTimeout(function(){
   systemMessage(oocname+" bot is now "+(oocbot?"on":"off"));
  },"Toggles the "+oocname+" bot");
  systemMessage(oocname+" bot plugin has loaded");
-},3000);
+},2000);
