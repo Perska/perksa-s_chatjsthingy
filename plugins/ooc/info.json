@@ -10,6 +10,10 @@
 		{
 			"command": "outofcon.txt/user-defined",
 			"description": "Triggers the bot locally"
+		},
+		{
+			"command": "addquote",
+			"description": "Adds a quote to your chatJS"
 		}
 	],
 	"script": "init.js"
