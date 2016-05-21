@@ -1,11 +1,7 @@
 setTimeout(function(){
- String.prototype.nth = function(pattern, n) {
-  var i = -1;
-  while (n-- && i++ < this.length) {
-   i = this.indexOf(pattern, i);
-   if (i < 0) break;
-  }
-  return i;
+ String.prototype.quote = function(n) {
+  var nn=this.split(">>")[n+1];
+  return ">>"+nn.substring(0,nn.length-(n+1!=ooc.split(">>",-1).length));
  };
  var oocdef=true;
  if(typeof oocbot=="undefined"){oocbot=true;}
@@ -15,40 +11,34 @@ setTimeout(function(){
  function oocbotfunc(param){
   var ind;
   var out;
-  var len=ooc.split(">>", -1).length-1;
+  var len=ooc.split(">>",-1).length-1;
   if(param==" count"){
    out=len+" quotes";
   }else if(param.startsWith(" search ")){
-   ind=0;
+   ind=-1;
    var exiting=false;
    var text=param.substring(" search ".length,param.length);
    var quote;
    do{
     ind++;
-    var nn=ooc.nth(">>",ind);
-    var n=ooc.nth(">>",ind+1);
-    quote=ooc.substring((nn!=-1?nn:ooc.length+1),(n!=-1?n:ooc.length+1)-1);
-    if(ind>len){
+    quote=ooc.quote(ind);
+    if(ind>=len){
      exiting=true;
      out='"'+text+'" was not found';
     }else if(new RegExp(text,"ig").test(quote)){
      exiting=true;
-     out='"'+text+'" found at quote '+(ind-1)+"\n"+quote;
+     out='"'+text+'" found at quote '+ind+"\n"+quote;
     }
    }while(!exiting);
   }else{
    if(/ [0-9]+/g.test(param)){
     ind=Number(param.substring(1,param.length));
-    ind++;
-    ind=(ind>len?1:ind);
-    ind=(ind<1?1:ind);
+    ind=(ind>=len?0:ind);
+    ind=(ind<0?0:ind);
    }else{
-    ind=Math.floor(Math.random()*len)+1;
+    ind=Math.floor(Math.random()*len);
    }
-   var nn=ooc.nth(">>",ind);
-   var n=ooc.nth(">>",ind+1);
-   if(nn==-1 && n==-1){nn=ooc.nth(">>",1);n=ooc.nth(">>",2);}
-    out=ooc.substring((nn!=-1?nn:ooc.length+1),(n!=-1?n:ooc.length+1)-1);
+    out=ooc.quote(ind);
    }
   return out;
  }
