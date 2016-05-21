@@ -19,16 +19,30 @@ var updateCmd = function(){
 	var chatJS = splitIntoSections(syncRequest("/query/chatJS"));
 	chatJS["boot"] = bootstrap;
 	
+	// Now, we reorder the sections in chatJS, or add them, and copy over any
+	// custom ones previously added
+	
+	var njs = {};
+	Object.keys(bootstrap)
+		.forEach(function(k){
+			njs[k] = chatJS[k] || bootstrap[k];
+		});
+	Object.keys(chatJS)
+		.forEach(function(k){
+			if(!k in njs)
+				njs[k] = chatJS[k];
+		});
+
 	// Finally, save the new chatJS
 	var data = new FormData;
-	data.append("chatJS", JSON.stringify(generateFromSections(chatJS)));
+	data.append("chatJS", JSON.stringify(generateFromSections(njs)));
 	syncRequest("/query/savesettings", data);
 	moduleMessage("Update successful! Refresh to complete the update.");
 };
 
 // This warns about an update
 var updateWarn = function(cur, lat){
-	warningMessage("There is an update to the chatJS plugin system bootstrap.\nTo update, either copy the contents of <a href=\"" + baseUrl + "bootstrap.js\">bootstrap.js</a> to your chatJS or run /update (which does the update for you, keeping the important stuff intact).\n\nCurrent version: " + cur + "\nLatest version: " + lat);
+	warningMessage("There is an update to the chatJS plugin system bootstrap.\nTo update, either copy the contents of <a href=\"" + baseUrl + "bootstrap.js\">bootstrap.js</a> to your chatJS or run /update (which does the update for you).\n\nCurrent version: " + cur + "\nLatest version: " + lat);
 	commands.push({
 		command: "update",
 		callback: updateCmd,
