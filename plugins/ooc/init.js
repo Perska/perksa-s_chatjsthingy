@@ -67,7 +67,7 @@ setTimeout(function(){
     userstuff.appendChild(b);
    }
   };
-  document.querySelectorAll("li").forEach(function(i){addquoteapplier(i);});
+  [].slice.call(document.querySelectorAll("li")).forEach(function(i){addquoteapplier(i);});
   addMessageEvent(function(i){addquoteapplier(i);});
   addCommand("addquote",function(param){
    var n=param.substring(1,param.length).split(" ")[0];
