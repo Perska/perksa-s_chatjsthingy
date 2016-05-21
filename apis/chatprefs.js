@@ -8,7 +8,7 @@ var ChatPreferences = function(namespace, global){
 		throw new Error("Namespaces cannot contain \"-\"")
 	// Global is a planned feature for storing preferences in the chatJS.
 	// For now, however, it's just good ol' LocalStorage
-	this._namespace = (global ? "" : "chatjs_") + (namespace || "global").trim() + "";
+	this._namespace = "chatjs_" + (namespace || "global").trim() + "";
 	this._store = (global ? globalStorage : localStorage);
 };
 ChatPreferences.prototype.set = function(name, val){
