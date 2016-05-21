@@ -1,7 +1,7 @@
 setTimeout(function(){
  String.prototype.quote = function(n) {
   var nn=this.split(">>")[n+1];
-  return ">>"+nn.substring(0,nn.length-(n+1!=ooc.split(">>",-1).length));
+  return ">>"+nn.substring(0,nn.length-(n+1!=ooc.split(">>",-1).length-1));
  };
  var oocdef=true;
  if(typeof oocbot=="undefined"){oocbot=true;}
