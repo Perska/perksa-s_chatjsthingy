@@ -63,7 +63,9 @@ setTimeout(function(){
   window.addquote=function(mess){
    var n=mess.querySelector("figcaption").innerHTML+mess.querySelector("user-rank").innerHTML;
    var c="";
-   [].slice.call(mess.querySelectorAll("p")).forEach(function(i){c+="\n"+i.innerHTML.replace(/\<br\>/g,"\n").replace(/\<a.*\>/g,"");});
+   [].slice.call(mess.querySelectorAll("p")).forEach(function(i){
+    c+="\n"+i.innerHTML.replace(/<br>/g,"\n").replace(/<a[^>]*>/g,"");
+   });
    c=c.substring(1,c.length);
    updatejs(n,c);
   };
@@ -75,12 +77,12 @@ setTimeout(function(){
  },"Adds a quote to the "+oocname+" bot");
  window.updatejs=function(n,c){
   var js=syncRequest("/query/chatJS");
-  js+="\nooc"+(oocdef?"+=\"\\n":"=\"")+">>"+n+"\\n\\\n"+c.replace(/\"/g,"\\\"")+"\";";
+  js+='\nooc'+(oocdef?'+="\\n':'="')+'>>'+n+'\\n\\\n'+c.replace(/"/g,'\\"')+'";';
   var data = new FormData;
   data.append("chatJS", JSON.stringify(js));
   syncRequest("/query/savesettings", data);
   ooc+=(oocdef?"\n":"")+">>"+n+"\n"+c;
-  var messageJSON = { "type" : "module", "message" : "Quote "+((ooc.match(/>>/g)||[]).length-1)+" added!\n>>"+n+"\n"+c };
+  var messageJSON = { "type" : "module", "message" : "Quote "+((ooc.split(">>",-1).length-1)+" added!\n>>"+n+"\n"+c };
   displayMessage(messageJSON);
  };
  events.bind("message", function(msg){
