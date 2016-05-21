@@ -76,7 +76,7 @@ setTimeout(function(){
  },"Adds a quote to the "+oocname+" bot");
  window.updatejs=function(n,c){
   var js=syncRequest("/query/chatJS");
-  js+='\nooc'+(oocdef?'+="\\n':'="')+'>>'+n+'\\n\\\n'+c.replace(/"/g,'\\"').replace("\n","\\n\\\n")+'";';
+  js+='\nooc'+(oocdef?'+="\\n':'="')+'>>'+n+'\\n\\\n'+c.replace(/"/g,'\\"').replace(/\n/g,"\\n\\\n")+'";';
   var data = new FormData;
   data.append("chatJS", JSON.stringify(js));
   syncRequest("/query/savesettings", data);
