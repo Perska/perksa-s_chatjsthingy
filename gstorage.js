@@ -11,15 +11,15 @@ window.globalStorage = {};
 
 var getStorage = function(){
 	var data = getChatJS()["globaldata"];
-	var d = /^[\s\S]*?\/\*START([\s\S]+)END\*\//i.exec(data)[1];
+	var d = /^[\s\S]*?\/\/START([\s\S]+)\n\/\/END/i.exec(data)[1].replace(/\n\/\//g, "\n");
 	console.log(d);
 	return JSON.parse(d.trim());
 };
 
 var setStorage = function(obj){
-	var d = JSON.stringify(obj, null, "\t");
+	var d = JSON.stringify(obj, null, "\t").replace(/\n/g, "\n//");
 	var chatJS = getChatJS();
-	chatJS["globaldata"] = "/*START\n" + d + "\nEND*/";
+	chatJS["globaldata"] = "//START\n" + d + "\n//END";
 	return uploadChatJS(chatJS);
 };
 
