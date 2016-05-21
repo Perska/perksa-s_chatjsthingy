@@ -12,12 +12,12 @@ var versionFile = baseUrl + "VERSION";
 // This is the /update command. Pretty basic.
 var updateCmd = function(){
 	// First, download the bootstrap
-	var bootstrap = splitIntoSections(syncRequest(baseUrl + "bootstrap.js"))["boot"];
+	var bootstrap = splitIntoSections(syncRequest(baseUrl + "bootstrap.js"));
 	
 	// Now, we download the user's chatJS, split it into sections,
 	// and replace the boot section with the bootstrap
 	var chatJS = getChatJS();
-	chatJS["boot"] = bootstrap;
+	chatJS["boot"] = bootstrap["boot"];
 	
 	// Now, we reorder the sections in chatJS, or add them, and copy over any
 	// custom ones previously added
