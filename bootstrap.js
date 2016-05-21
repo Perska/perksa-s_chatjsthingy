@@ -24,7 +24,7 @@ required.forEach(function(name){
 });
 
 // SECTION LOADS
-// Put your /loadplugin's here
+// Put your /loadplugins here
 
 
 // SECTION RESERVED

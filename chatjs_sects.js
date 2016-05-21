@@ -12,6 +12,7 @@ window.splitIntoSections = function(code){
 	var i = 0;
 	var t = code.split("\n");
 	var sectionPos = {};
+	sectionPos["preboot"]=0;
 	t.forEach(function(l, ln){
 		if(l.indexOf("// SECTION ") === 0){
 			var s = /^\/\/ SECTION (.+?)$/.exec(l)[1].toLowerCase();
@@ -19,7 +20,7 @@ window.splitIntoSections = function(code){
 		}
 	});
 	Object.keys(sectionPos).forEach((sect) => {
-		var start = sectionPos[sect] + 1;
+		var start = sectionPos[sect] + (sect!="preboot");
 		var end = t.length;
 		for(var i = start; i < t.length; i++){
 			var ln = t[i];
@@ -56,8 +57,8 @@ window.generateFromSections = function(sects){
 		if(sect === "insertAfter")
 			return;
 		var sectCode = sects[sect];
-		code += "// SECTION ";
-		code += sect.toUpperCase() + "\n";
+		if(sect!="preboot"){code += "// SECTION ";
+		code += sect.toUpperCase() + "\n";}
 		code += sectCode.toString() + "\n\n";
 	});
 	return code;
@@ -79,7 +80,7 @@ window.parseLoads = function(sects){
 
 // This regenerates the loadPlugin instances into the LOADS section
 window.generateLoads = function(sects, plugins){
-	var o = "// Put your loadPlugin's here";
+	var o = "// Put your loadPlugins here";
 	plugins.forEach(function(name){
 		o += "\nloadPlugin(\"" + name + "\");";
 	});
