@@ -71,7 +71,9 @@ setTimeout(function(){
   addMessageEvent(function(i){addquoteapplier(i);});
   window.addquote=function(mess){
    var n=mess.querySelector("figcaption").innerHTML+mess.querySelector("user-rank").innerHTML;
-   var c=mess.querySelector("p").innerHTML;
+   var c="";
+   [].slice.call(mess.querySelectorAll("p")).forEach(function(i){c+="\n"+i.innerHTML;});
+   c=c.substring(1,c.length);
    updatejs(n,c);
   };
  }
