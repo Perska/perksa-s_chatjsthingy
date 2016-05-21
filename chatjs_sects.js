@@ -52,6 +52,7 @@ window.syncRequest = function(url, data){
 
 // This converts an object of sections back into JS compatible with chatJS
 window.generateFromSections = function(sects){
+	var code = "";
 	Object.keys(sects).forEach((sect) => {
 		if(sect === "insertAfter")
 			return;
