@@ -61,10 +61,10 @@ setTimeout(function(){
   addMessageEvent(function(messageElement){
    var userstuff=messageElement.querySelector("figure");
    if(userstuff!=null){
-    var button=document.createElement("button");
-    button.onclick="addquote(this.parentNode.parentNode)";
-    button.innerHTML="Add quote to "+oocname;
-    userstuff.appendChild(button);
+    var b=document.createElement("button");
+    b.onclick="addquote(this.parentNode.parentNode)";
+    b.innerHTML="Add quote to "+oocname;
+    userstuff.appendChild(b);
    }
   });
   addCommand("addquote",function(param){
@@ -73,10 +73,10 @@ setTimeout(function(){
    updatejs(n,c);
   },"Adds a quote to the "+oocname+" bot");
   window.addquote=function(mess){
-   var n=mess.querySelector("figure").querySelector("figcaption").innerHTML+mess.querySelector("figure").querySelector("user-rank").innerHTML;
+   var n=mess.querySelector("figcaption").innerHTML+mess.querySelector("user-rank").innerHTML;
    var c=mess.querySelector("p").innerHTML;
    updatejs(n,c);
-  }
+  };
   window.updatejs=function(n,c){
    var js=syncRequest("/query/chatJS");
    js+="\n"+(oocdef?"":"ooc=\"\";\n")+"ooc+=\">>"+n+"\\n\\\n"+c+"\";";
@@ -85,7 +85,7 @@ setTimeout(function(){
    syncRequest("/query/savesettings", data);
    ooc+=">>"+n+"\n"+c;
    systemMessage("Quote "+(ooc.match(/>>/g)||[]).length+" added!\n>>"+n+"\n"+c);
-  }
+  };
  }
  events.bind("message", function(msg){
   if(oocbot){
@@ -106,4 +106,5 @@ setTimeout(function(){
   oocbot=!oocbot;
   systemMessage(oocname+" bot is now "+(oocbot?"on":"off"));
  },"Toggles the "+oocname+" bot");
+ systemMessage(oocname+" bot plugin has loaded");
 },3000);
