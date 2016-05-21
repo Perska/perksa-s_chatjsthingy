@@ -2,6 +2,7 @@
 	"microevent.js",
 	"chatjs_sects.js",
 	"update.js",
+	"gstorage.js",
 	"init.js",
 	"plugininfo.js",
 	"events.js"

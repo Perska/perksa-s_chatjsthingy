@@ -9,7 +9,9 @@
 */
 
 // SECTION BOOT
-var version = "2.0.0",
+// Recommended not to put arbitary code here, as it'll be wiped during
+// a bootstrap update
+var version = "2.1.0",
 	baseUrl = "http://sbs-chatjs.github.io/",
 	x = new XMLHttpRequest;
 
@@ -24,8 +26,15 @@ required.forEach(function(name){
 });
 
 // SECTION LOADS
-// Put your /loadplugins here
+// Put your loadPlugin statements here
+// Don't put any other sorts of code here
 
+// SECTION GLOBALDATA
+// This section stores the data added via ChatPrefs, which is stored as JSON.
+// Not a good idea to put actual code here...
+/*START
+{}
+END*/
 
-// SECTION RESERVED
-// This area is reserved for the future. Extra sections, perhaps
+// SECTION -RESERVED
+// This section is obsolete, as the new sectioning system makes everything easier

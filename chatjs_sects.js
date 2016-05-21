@@ -86,3 +86,15 @@ window.generateLoads = function(sects, plugins){
 	sects["loads"] = o;
 	return sects;
 };
+
+// This returns the current chatJS, split into sections
+window.getChatJS = function(){
+	return splitIntoSections(syncRequest("/query/chatJS"));
+};
+
+// This regenerates the chatJS and uploads it
+window.uploadChatJS = function(sects){
+	var fd = new FormData;
+	fd.append("chatJS", JSON.stringify(generateFromSections(sects)));
+	return JSON.parse(syncRequest("/query/savesettings", fd)).result;
+};

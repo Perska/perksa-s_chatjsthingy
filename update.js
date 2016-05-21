@@ -16,7 +16,7 @@ var updateCmd = function(){
 	
 	// Now, we download the user's chatJS, split it into sections,
 	// and replace the boot section with the bootstrap
-	var chatJS = splitIntoSections(syncRequest("/query/chatJS"));
+	var chatJS = getChatJS();
 	chatJS["boot"] = bootstrap;
 	
 	// Now, we reorder the sections in chatJS, or add them, and copy over any
@@ -25,19 +25,21 @@ var updateCmd = function(){
 	var njs = {};
 	Object.keys(bootstrap)
 		.forEach(function(k){
+			if(k[0] === "-") // This means a section is actually being removed because it's not needed
+				return;
 			njs[k] = chatJS[k] || bootstrap[k];
 		});
 	Object.keys(chatJS)
 		.forEach(function(k){
+			if(("-" + k) in bootstrap)
+				return;
 			if(!k in njs)
 				njs[k] = chatJS[k];
 		});
 
 	// Finally, save the new chatJS
-	var data = new FormData;
-	data.append("chatJS", JSON.stringify(generateFromSections(njs)));
-	syncRequest("/query/savesettings", data);
-	moduleMessage("Update successful! Refresh to complete the update.");
+	uploadChatJS(njs);
+	moduleMessage("Update complete! Refresh to complete the update.");
 };
 
 // This warns about an update
