@@ -82,7 +82,7 @@ setTimeout(function(){
   data.append("chatJS", JSON.stringify(js));
   syncRequest("/query/savesettings", data);
   ooc+=(oocdef?"\n":"")+">>"+n+"\n"+c;
-  var messageJSON = { "type" : "module", "message" : "Quote "+((ooc.split(">>",-1).length-1)+" added!\n>>"+n+"\n"+c };
+  var messageJSON = { "type" : "module", "message" : "Quote "+(ooc.split(">>",-1).length-1)+" added!\n>>"+n+"\n"+c };
   displayMessage(messageJSON);
  };
  events.bind("message", function(msg){
