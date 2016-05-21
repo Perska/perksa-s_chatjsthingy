@@ -77,7 +77,7 @@ setTimeout(function(){
    var c=mess.querySelector("p").innerHTML;
    updatejs(n,c);
   }
-  function updatejs(n,c){
+  window.updatejs=function(n,c){
    var js=syncRequest("/query/chatJS");
    js+="\n"+(oocdef?"":"ooc=\"\";\n")+"ooc+=\">>"+n+"\\n\\\n"+c+"\";";
    var data = new FormData;
