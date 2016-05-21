@@ -21,13 +21,15 @@ setTimeout(function(){
    var quote;
    do{
     ind++;
-    quote=ooc.quote(ind);
     if(ind>=len){
      exiting=true;
      out='"'+text+'" was not found';
-    }else if(new RegExp(text,"ig").test(quote)){
-     exiting=true;
-     out='"'+text+'" found at quote '+ind+"\n"+quote;
+    }else{
+	 quote=ooc.quote(ind);
+     if(new RegExp(text,"ig").test(quote)){
+      exiting=true;
+      out='"'+text+'" found at quote '+ind+"\n"+quote;
+	 }
     }
    }while(!exiting);
   }else{
