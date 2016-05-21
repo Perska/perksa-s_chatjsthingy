@@ -44,7 +44,7 @@ setTimeout(function(){
     ind=(ind>(ooc.match(/>>/g)||[]).length?1:ind);
     ind=(ind<1?1:ind);
    }else{
-     ind=Math.floor(Math.random()*(ooc.match(/>>/g)||[]).length);
+    ind=Math.floor(Math.random()*(ooc.match(/>>/g)||[]).length)+1;
    }
    var nn=ooc.nth(">>",ind);
    var n=ooc.nth(">>",ind+1);
@@ -84,11 +84,11 @@ setTimeout(function(){
  },"Adds a quote to the "+oocname+" bot");
  window.updatejs=function(n,c){
   var js=syncRequest("/query/chatJS");
-  js+="\n"+(oocdef?"":"ooc=\"\";\n")+"ooc+=\">>"+n+"\\n\\\n"+c.replace(/\"/g,"\\\"")+"\";";
+  js+="\nooc"+(oocdef?"+=\"\\n":"=\"")+">>"+n+"\\n\\\n"+c.replace(/\"/g,"\\\"")+"\";";
   var data = new FormData;
   data.append("chatJS", JSON.stringify(js));
   syncRequest("/query/savesettings", data);
-  ooc+=">>"+n+"\n"+c;
+  ooc+=(oocdef?"\n":"")+">>"+n+"\n"+c;
   var messageJSON = { "type" : "module", "message" : "Quote "+((ooc.match(/>>/g)||[]).length-1)+" added!\n>>"+n+"\n"+c };
   displayMessage(messageJSON);
  };
