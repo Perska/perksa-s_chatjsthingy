@@ -48,15 +48,18 @@ function _listInstalled() {
   const names = Object.keys(window.loaded["Plugins"]).sort();
   if(names.length) {
     let message = "Plugins currently installed:";
-    for(let plug of names) {
+    names.forEach(plug => {
       message += `\n- ${plug}`;
-    }
+    });
     moduleMessage(message);
   } else {
     moduleMessage("No plugins installed.");
   }
 }
 
+function _list() {
+  
+}
 
 commands.push({
   command: "plugininfo",
