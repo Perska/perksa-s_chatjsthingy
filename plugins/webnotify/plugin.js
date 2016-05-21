@@ -10,7 +10,7 @@ if(ChatPrefs == null){
 	return warningMessage("ChatPrefs, a required API, did not load successfully.");
 }
 
-var prefs = new ChatPrefs("webnotify");
+var prefs = new ChatPrefs("webnotify", true);
 if(!prefs.exists("when") || !prefs.exists("altnames")){
 	prefs.set("when", 0);
 	prefs.set("altnames", []);
@@ -25,6 +25,17 @@ var unescape = function(str){
 var when     = prefs.get("when"),
 	altnames = prefs.get("altnames"),
 	away     = false;
+
+if(Notification.permission !== "granted" && when > 0)
+	Notification.requestPermission(function(res){
+		if(res === "granted"){
+			systemMessage("Notifications allowed!");
+		} else {
+			when = 0;
+			prefs.set("when", when);
+			warningMessage("You didn't allow notifications! This plugin has been disabled!");
+		}
+	});
 
 window.addEventListener("blur", function(){
 	away = true;
