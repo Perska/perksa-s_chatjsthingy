@@ -1,0 +1,12 @@
+{
+	"name": "Custom emote plugin",
+	"description": "Allows the creation of custom emotes",
+	"author": "Trinitro21",
+	"commands": [
+		{
+			"command": "cemote",
+			"description": "Manages custom emotes"
+		}
+	],
+	"script": "init.js"
+}

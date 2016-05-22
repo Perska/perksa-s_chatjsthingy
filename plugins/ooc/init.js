@@ -162,7 +162,7 @@ setTimeout(function(){
     var n=Number(param.substring(8,param.length));
     if(n==undefined){systemMessage("Invalid input for index");}else{
      var res=ooc.removequote(n);
-	 if(res!=false){ooc=res;setoption();systemMessage("Quote "+n+" successfully removed!");}else{systemMessage("Something went wrong, and quote "+n+" was unable to be removed");}
+     if(res!=false){ooc=res;setoption();systemMessage("Quote "+n+" successfully removed!");}else{systemMessage("Something went wrong, and quote "+n+" was unable to be removed");}
     }
    }
   }else if(param.startsWith(" get ")){
@@ -173,7 +173,7 @@ setTimeout(function(){
   }else{
    systemMessage("Options are:\n/ooc bot [on/off]\n/ooc name [string]\n/ooc button [on/off]\n/ooc add [author] [quote]\n/ooc remove [index]\n/ooc get [bot/name/button]");
   }
- },"Sets or gets options for the "+oocname+" bot");
+ },"Sets or gets options for the "+oocname+" bot and manages quotes");
  function setoption(){
   globalStorage.setItem("ooc",JSON.stringify({oocbot:oocbot,oocname:oocname,oocbuttons:oocbuttons,ooc:ooc}));
  }
