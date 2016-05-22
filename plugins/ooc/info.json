@@ -5,16 +5,12 @@
 	"commands": [
 		{
 			"command": "ooc",
-			"description": "Sets or gets options for the bot"
+			"description": "Sets or gets options for the bot and manages quotes"
 		},
 		{
 			"command": "outofcon.txt/user-defined",
 			"description": "Triggers the bot locally"
 		},
-		{
-			"command": "addquote",
-			"description": "Adds a quote to your chatJS"
-		}
 	],
 	"script": "init.js"
 }

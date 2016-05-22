@@ -3,6 +3,27 @@ setTimeout(function(){
   var nn=this.split(">>")[n+1];
   return ">>"+nn.substring(0,nn.length-(n+1!=ooc.split(">>",-1).length-1));
  };
+ String.prototype.removequote = function(n) {
+  var i=0
+  var index=-1;
+  var bad=false;
+  while(i<n){
+   index=this.indexOf(">>",index+1);
+   if(index==-1){bad=true;break;}
+   i++;
+  }
+  if(!bad){
+   index=this.indexOf(">>",index+1);
+   var index2=this.indexOf(">>",index+1);
+   if(index<0 && index2<0){bad=true;}
+   if(!bad){
+    this=(index==0?"":this.substring(0,index))+(index2<0?"":this.substring(index2,this.length));
+    return true;
+   }else{return false;}
+  }else{
+   return false;
+  }
+ };
  var oocdef=false;
  if(typeof ooc!="undefined"){
   oocdef=true;
@@ -12,7 +33,8 @@ setTimeout(function(){
  if(oocoptions==null){
   oocoptions={oocbot:true,oocname:"outofcon.txt",oocbuttons:false,ooc:(oocdef?ooc:"")};
  }
- oocbot=oocoptions.oocbot;oocname=oocoptions.oocname;oocbuttons=oocoptions.oocbuttons;ooc=oocoptions.ooc;
+ oocbot=oocoptions.oocbot;oocname=oocoptions.oocname;oocbuttons=oocoptions.oocbuttons;
+ if(!oocdef){ooc=oocoptions.ooc;}
  if(oocdef){setoption();}
  function oocbotfunc(param){
   var ind;
@@ -82,11 +104,6 @@ setTimeout(function(){
    updateooc(n,c);
   };
  }
- addCommand("addquote",function(param){
-  var n=param.substring(1,param.length).split(" ")[0];
-  var c=param.substring(n.length+2,param.length);
-  updateooc(n,c);
- },"Adds a quote to the "+oocname+" bot");
  window.updateooc=function(n,c){
   ooc+=(oocdef?"\n":"")+">>"+n+"\n"+c;
   setoption();
@@ -125,7 +142,7 @@ setTimeout(function(){
    }
   }else if(param.startsWith(" name ")){
    if(param.length<=6){
-    systemMessage("You must specify a name to rename the bot");
+    systemMessage("You must specify a parameter for name in the format\n/ooc name [string]");
    }else{
     var oldname=oocname;
     oocname=param.substring(6,param.length);
@@ -146,13 +163,28 @@ setTimeout(function(){
     setoption();
     systemMessage(oocname+" buttons are now "+(oocbuttons?"on":"off")+"\nThe changes will be applied when you refresh");
    }
+  }else if(param.startsWith(" add ")){
+   if(param.length<=5){systemMessage("You must specify a parameter for add in the format\n/ooc add [author] [quote]");}
+   else{
+    var n=param.substring(5,param.length).split(" ")[0];
+    var c=param.substring(n.length+6,param.length);
+    updateooc(n,c);
+   }
+  }else if(param.startsWith(" remove ")){
+   if(param.length<=8){systemMessage("You must specify a parameter for remove in the format\n/ooc remove [index]");}
+   else{
+    var n=Number(param.substring(8,param.length));
+    if(n==undefined){systemMessage("Invalid input for index");}else{
+     if(ooc.removequote(n)){setoption();systemMessage("Quote "+n+" successfully removed!");}else{systemMessage("Something went wrong, and quote "+n+" was unable to be removed");}
+    }
+   }
   }else if(param.startsWith(" get ")){
    if(param.substring(5,param.length)=="bot"){systemMessage(oocname+" bot is "+(oocbot?"on":"off"));}
    else if(param.substring(5,param.length)=="name"){systemMessage("Bot name is "+oocname);}
    else if(param.substring(5,param.length)=="button"){systemMessage(oocname+" bot buttons are "+(oocbuttons?"on":"off"));}
    else{systemMessage("Invalid option for get\nOptions are: bot, name, button");}
   }else{
-   systemMessage("A parameter must be specified\nOptions are:\n/ooc bot [on/off]\n/ooc name [string]\n/ooc button [on/off]\n/ooc get [bot/name/button]");
+   systemMessage("A parameter must be specified\nOptions are:\n/ooc bot [on/off]\n/ooc name [string]\n/ooc button [on/off]\n/ooc add [author] [quote]\n/ooc remove [index]\n/ooc get [bot/name/button]");
   }
  },"Sets or gets options for the "+oocname+" bot");
  function setoption(){
