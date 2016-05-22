@@ -5,7 +5,7 @@
 	"commands": [
 		{
 			"command": "ooc",
-			"description": "Toggles the bot"
+			"description": "Sets or gets options for the bot"
 		},
 		{
 			"command": "outofcon.txt/user-defined",

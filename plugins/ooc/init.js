@@ -4,9 +4,11 @@ setTimeout(function(){
   return ">>"+nn.substring(0,nn.length-(n+1!=ooc.split(">>",-1).length-1));
  };
  var oocdef=true;
- if(typeof oocbot=="undefined"){oocbot=true;}
- if(typeof oocname=="undefined"){oocname="outofcon.txt";}
- if(typeof oocbuttons=="undefined"){oocbuttons=false;}
+ var oocoptions=JSON.parse(globalStorage.getItem("ooc"));
+ if(oocoptions==null){
+  oocoptions={oocbot:true,oocname:"outofcon.txt",oocbuttons:false};
+ }
+ oocbot=oocoptions.oocbot;oocname=oocoptions.oocname;oocbuttons=oocoptions.oocbuttons;
  if(typeof ooc=="undefined"){oocdef=false;ooc="";}
  function oocbotfunc(param){
   var ind;
@@ -81,7 +83,7 @@ setTimeout(function(){
   data.append("chatJS", JSON.stringify(js));
   syncRequest("/query/savesettings", data);
   ooc+=(oocdef?"\n":"")+">>"+n+"\n"+c;
-  var messageJSON = { "type" : "module", "message" : "Quote "+(ooc.split(">>",-1).length-1)+" added!\n>>"+n+"\n"+c };
+  var messageJSON = { "type" : "module", "message" : "Quote "+(ooc.split(">>",-1).length-2)+" added!\n>>"+n+"\n"+c };
   displayMessage(messageJSON);
  };
  events.bind("message", function(msg){
@@ -99,9 +101,55 @@ setTimeout(function(){
    }
   }
  });
- addCommand("ooc",function(){
-  oocbot=!oocbot;
-  systemMessage(oocname+" bot is now "+(oocbot?"on":"off"));
- },"Toggles the "+oocname+" bot");
+ addCommand("ooc",function(param){
+  if(param.startsWith(" bot ")){
+   var set=-1;
+   if(param.substring(5,param.length)=="on"){
+    set=true;
+   }else if(param.substring(5,param.length)=="off"){
+    set=false;
+   }else{
+    systemMessage("Invalid option for bot\nOptions are: on, off");
+   }
+   if(set!=-1){
+    oocbot=set;
+    setoption();
+    systemMessage(oocname+" bot is now "+(oocbot?"on":"off"));
+   }
+  }else if(param.startsWith(" name ")){
+   if(param.length<=6){
+    systemMessage("You must specify a name to rename the bot");
+   }else{
+    var oldname=oocname;
+    oocname=param.substring(6,param.length);
+    setoption();
+    systemMessage("Bot name changed to "+oocname+"\nThe bot will respond to PMs correctly, but you must refresh for the local function to change from /"+oldname);
+   }
+  }else if(param.startsWith(" button "){
+   var set=-1;
+   if(param.substring(8,param.length)=="on"){
+    set=true;
+   }else if(param.substring(8,param.length)=="off"){
+    set=false;
+   }else{
+    systemMessage("Invalid option for button\nOptions are: on, off");
+   }
+   if(set!=-1){
+    oocbuttons=set;
+    setoption();
+    systemMessage(oocname+" buttons are now "+(oocbuttons?"on":"off")+"\nThe changes will be applied when you refresh");
+   }
+  }else if(param.startsWith(" get ")){
+   if(param.substring(5,param.length)=="bot"){systemMessage(oocname+" bot is "+(oocbot?"on":"off"));}
+   else if(param.substring(5,param.length)=="name"){systemMessage("Bot name is "+oocname);}
+   else if(param.substring(5,param.length)=="button"){systemMessage(oocname+" bot buttons are "+(oocbuttons?"on":"off"));}
+   else{systemMessage("Invalid option for get\nOptions are: bot, name, button");}
+  }else{
+   systemMessage("A parameter must be specified\nOptions are:\n/ooc bot [on/off]\n/ooc name [string]\n/ooc button [on/off]\n/ooc get [bot/name/button]");
+  }
+ },"Sets or gets options for the "+oocname+" bot");
+ function setoption(){
+  globalStorage.setItem("ooc",JSON.stringify({oocbot:oocbot,oocname:oocname,oocbuttons:oocbuttons}));
+ }
  systemMessage(oocname+" bot plugin has loaded");
 },2000);
