@@ -35,11 +35,11 @@ if(e==null){
  e=[];save();
 }
 [].slice.call(document.querySelectorAll("li")).forEach(function(i){emotereplace(i);});
-function emotereplace(i){
- [].slice.call(i.querySelectorAll("p")).forEach(function(i){
+function emotereplace(m){
+ [].slice.call(m.querySelectorAll("p")).forEach(function(i){
   e.forEach(function(n){
    var ind=defaultstrs.indexOf(n.str);
-   if(ind!=-1){i.innerHTML=i.innerHTML.replace(new RegExt('<img class\\="emote" src\\="\\/static_images\\/emotes\\/'+defaulturls[ind].replace(/\./g,"\\.")+'"><\\/img>',"g"),'<img class="emote" src="'+n.url+'"></img>');}
+   if(ind!=-1){i.innerHTML=i.innerHTML.replace(new RegExp('<img class\\="emote" src\\="\\/static_images\\/emotes\\/'+defaulturls[ind].replace(/\./g,"\\.")+'"><\\/img>',"g"),'<img class="emote" src="'+n.url+'"></img>');}
    i.innerHTML=i.innerHTML.replace(new RegExp("\\("+n.str+"\\)","g"),'<img class="emote" src="'+n.url+'"></img>');
   });
  });
