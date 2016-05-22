@@ -1,7 +1,8 @@
+var e;
 function save(){
  globalStorage.setItem("cemote",JSON.stringify(e));
 }
-var e=JSON.parse(globalStorage.getItem("cemote"));
+e=JSON.parse(globalStorage.getItem("cemote"));
 if(e==null){
  e=[];save();
 }
@@ -20,7 +21,7 @@ addCommand("cemote",function(param){
   else{
    var n=param.substring(5,param.length).split(" ")[0];
    var c=param.substring(n.length+6,param.length);
-   e+={str:n,url:c};
+   e.push({str:n,url:c});
    save();
    systemMessage("("+n+") added! Refresh for the changes to take effect!");
   }
