@@ -4,21 +4,10 @@ setTimeout(function(){
   return ">>"+nn.substring(0,nn.length-(n+1!=ooc.split(">>",-1).length-1));
  };
  String.prototype.removequote = function(n) {
-  var index=-2;
-  var bad=false;
-  for(var i=0;i<n;i++){
-   index=this.indexOf(">>",index+1);
-   if(index<0){bad=true;break;}
-  }
-  if(!bad){
-   index=this.indexOf(">>",index+1);
-   var index2=this.indexOf(">>",index+1);
-   if(index<0 && index2<0){bad=true;}
-   if(!bad){
-    return (index==0?"":this.substring(0,index))+(index2<0?"":this.substring(index2,this.length));
-   }else{return false;}
-  }else{
-   return false;
+  if(n<0 || n>=ooc.split(">>",-1).length-1){return false;}else{
+   arr=this.split(">>");
+   arr.splice(n+1);
+   return arr.join(">>");
   }
  };
  var oocdef=false;
@@ -41,11 +30,11 @@ setTimeout(function(){
    out=len+" quotes";
   }else if(param==" help"){
    out="Options for "+oocname+" are:\n"
-   +oocname+"\n    Returns a random quote\n"
-   +oocname+" [number]\n    Returns the quote with the specified index\n"
-   +oocname+" count\n    Returns the number of quotes\n"
-   +oocname+" search [phrase]\n    Searches all quotes for the phrase\n"
-   +oocname+" help\n    Displays this help menu";   
+   +oocname+"\n-Returns a random quote\n"
+   +oocname+" [number]\n-Returns the quote with the specified index\n"
+   +oocname+" count\n-Returns the number of quotes\n"
+   +oocname+" search [phrase]\n-Searches all quotes for the phrase\n"
+   +oocname+" help\n-Displays this help menu";   
   }else if(param.startsWith(" search ")){
    ind=-1;
    var exiting=false;
@@ -189,4 +178,4 @@ setTimeout(function(){
   globalStorage.setItem("ooc",JSON.stringify({oocbot:oocbot,oocname:oocname,oocbuttons:oocbuttons,ooc:ooc}));
  }
  systemMessage(oocname+" bot plugin has loaded");
-},2000);
+},1000);
