@@ -32,9 +32,9 @@ required.forEach(function(name){
 // SECTION GLOBALDATA
 // This section stores the data added via ChatPrefs, which is stored as JSON.
 // Not a good idea to put actual code here...
-/*START
-{}
-END*/
+//START
+//{}
+//END
 
 // SECTION -RESERVED
 // This section is obsolete, as the new sectioning system makes everything easier
