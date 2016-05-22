@@ -34,11 +34,11 @@ addCommand("cemote",function(param){
    if(!false){
     e.push({str:n,url:c});
     save();
-    [].slice.call(document.querySelectorAll("li")).forEach(function(m){[].slice.call(m.querySelectorAll("p")).forEach(function(i){
+    [].slice.call(document.querySelectorAll("li")).forEach(function(i){
      n=e[e.length-1];
      if(emotelist.mapping.hasOwnProperty(n.str)){i.innerHTML=i.innerHTML.replace(new RegExp('<img class\\="emote" src\\="\\/static_images\\/emotes\\/'+escapeRegExp(emotelist.mapping[n.str])+'">',"g"),'<img class="emote" src="'+n.url+'">');}
      i.innerHTML=i.innerHTML.replace(new RegExp("\\("+n.str+"\\)","g"),'<img class="emote" src="'+n.url+'"></img>');
-    });});
+    });
     systemMessage("("+n.str+") added!");
    }
   }
@@ -48,12 +48,11 @@ addCommand("cemote",function(param){
    var flag=false;
    for(var i=0;i<e.length;i++){
     if(e[i].str==param.substring(8,param.length)){
-     [].slice.call(document.querySelectorAll("li")).forEach(function(m){[].slice.call(m.querySelectorAll("p")).forEach(function(p){
+     [].slice.call(document.querySelectorAll("li")).forEach(function(p){
       n=e[i];
       if(emotelist.mapping.hasOwnProperty(n.str)){p.innerHTML=p.innerHTML.replace(new RegExp('<img class\\="emote" src\\="\\/static_images\\/emotes\\/'+escapeRegExp(n.url)+'">',"g"),'<img class="emote" src="'+emotelist.mapping[n.str]+'">');}
       p.innerHTML=p.innerHTML.replace(new RegExp('<img class\\="emote" src\\="'+escapeRegExp(n.url)+'">(</img>)?',"g"),"("+n.str+")");
-     });});
-     
+     });
      flag=true;e.splice(i,1);save();systemMessage("("+param.substring(8,param.length)+") removed!");break;}
    }
    if(!flag){systemMessage("("+param.substring(8,param.length)+") doesn't exist and therefore couldn't be removed");}
