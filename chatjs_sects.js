@@ -54,8 +54,8 @@ window.syncRequest = function(url, data){
 window.generateFromSections = function(sects){
 	var code = "";
 	Object.keys(sects).forEach((sect) => {
-		if(sect === "insertAfter")
-			return;
+		if(sect[0] === "-")
+			return; // This is obviously a leftover from copying over the chatJS
 		var sectCode = sects[sect];
 		if(sect!="preboot"){code += "// SECTION ";
 		code += sect.toUpperCase() + "\n";}
