@@ -39,7 +39,7 @@ addCommand("cemote",function(param){
      if(emotelist.mapping.hasOwnProperty(n.str)){i.innerHTML=i.innerHTML.replace(new RegExp('<img class\\="emote" src\\="\\/static_images\\/emotes\\/'+emotelist.mapping[n.str].replace(/\./g,"\\.")+'">',"g"),'<img class="emote" src="'+n.url+'">');}
      i.innerHTML=i.innerHTML.replace(new RegExp("\\("+n.str+"\\)","g"),'<img class="emote" src="'+n.url+'"></img>');
     });});
-    systemMessage("("+n+") added!");
+    systemMessage("("+n.str+") added!");
    }
   }
  }else if(param.startsWith(" remove ")){
