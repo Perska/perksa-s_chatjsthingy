@@ -4,13 +4,11 @@ setTimeout(function(){
   return ">>"+nn.substring(0,nn.length-(n+1!=ooc.split(">>",-1).length-1));
  };
  String.prototype.removequote = function(n) {
-  var i=0
-  var index=-1;
+  var index=-2;
   var bad=false;
-  while(i<n){
+  for(var i=0;i<n;i++){
    index=this.indexOf(">>",index+1);
-   if(index==-1){bad=true;break;}
-   i++;
+   if(index<0){bad=true;break;}
   }
   if(!bad){
    index=this.indexOf(">>",index+1);
@@ -184,7 +182,7 @@ setTimeout(function(){
    else if(param.substring(5,param.length)=="button"){systemMessage(oocname+" bot buttons are "+(oocbuttons?"on":"off"));}
    else{systemMessage("Invalid option for get\nOptions are: bot, name, button");}
   }else{
-   systemMessage("A parameter must be specified\nOptions are:\n/ooc bot [on/off]\n/ooc name [string]\n/ooc button [on/off]\n/ooc add [author] [quote]\n/ooc remove [index]\n/ooc get [bot/name/button]");
+   systemMessage("Options are:\n/ooc bot [on/off]\n/ooc name [string]\n/ooc button [on/off]\n/ooc add [author] [quote]\n/ooc remove [index]\n/ooc get [bot/name/button]");
   }
  },"Sets or gets options for the "+oocname+" bot");
  function setoption(){
