@@ -1,7 +1,7 @@
 function save(){
  globalStorage.setItem("cemote",e);
 }
-var e=JSON.parse(globalStorage.getItem("cemote"));
+var e=globalStorage.getItem("cemote");
 if(e==null){
  e=[];save();
 }
