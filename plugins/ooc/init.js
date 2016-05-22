@@ -13,6 +13,7 @@ setTimeout(function(){
   oocoptions={oocbot:true,oocname:"outofcon.txt",oocbuttons:false,ooc:(oocdef?ooc:"")};
  }
  oocbot=oocoptions.oocbot;oocname=oocoptions.oocname;oocbuttons=oocoptions.oocbuttons;ooc=oocoptions.ooc;
+ if(oocdef){setoption();}
  function oocbotfunc(param){
   var ind;
   var out;
