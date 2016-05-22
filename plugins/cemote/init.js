@@ -7,11 +7,15 @@ if(e==null){
  e=[];save();
 }
 [].slice.call(document.querySelectorAll("li")).forEach(function(i){emotereplace(i);});
-addMessageEvent(function(i){emotereplace(i);});
+events.bind("message", function(msg){
+ e.forEach(function(n){
+  msg.message=msg.message.replace(new RegExp("\\("+n.str+"\\)","g"),'<img style="height:2.2rem;" src="'+n.url+'"/>');
+ });
+});
 function emotereplace(i){
  [].slice.call(i.querySelectorAll("p")).forEach(function(i){
   e.forEach(function(n){
-   i.innerHTML=i.innerHTML.replace(new RegExp("\\("+n.str+"\\)","g"),'<img style="height:2.2rem;" src="'+n.url+'"/>');
+   i.innerHTML=i.innerHTML.replace(new RegExp("\\("+n.str+"\\)","g"),'<img class="emote" src="'+n.url+'"/>');
   });
  });
 }
