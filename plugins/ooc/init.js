@@ -3,19 +3,29 @@ setTimeout(function(){
   var nn=this.split(">>")[n+1];
   return ">>"+nn.substring(0,nn.length-(n+1!=ooc.split(">>",-1).length-1));
  };
- var oocdef=true;
+ var oocdef=false;
+ if(typeof ooc!="undefined"){
+  oocdef=true;
+  systemMessage("You're using the variable ooc in your chatJS to store your quotes\nYour quotes will be safely moved to globalStorage,\nbut until you delete the ooc variable in your chatJS, you won't be able to update it reliably");
+ }
  var oocoptions=JSON.parse(globalStorage.getItem("ooc"));
  if(oocoptions==null){
-  oocoptions={oocbot:true,oocname:"outofcon.txt",oocbuttons:false};
+  oocoptions={oocbot:true,oocname:"outofcon.txt",oocbuttons:false,ooc:(oocdef?ooc:"")};
  }
- oocbot=oocoptions.oocbot;oocname=oocoptions.oocname;oocbuttons=oocoptions.oocbuttons;
- if(typeof ooc=="undefined"){oocdef=false;ooc="";}
+ oocbot=oocoptions.oocbot;oocname=oocoptions.oocname;oocbuttons=oocoptions.oocbuttons;ooc=oocoptions.ooc;
  function oocbotfunc(param){
   var ind;
   var out;
   var len=ooc.split(">>",-1).length-1;
   if(param==" count"){
    out=len+" quotes";
+  }else if(param==" help"){
+   out="Options for "+oocname+" are:\n"
+   +oocname+"\n    Returns a random quote\n"
+   +oocname+" [number]\n    Returns the quote with the specified index\n"
+   +oocname+" count\n    Returns the number of quotes\n"
+   +oocname+" search [phrase]\n    Searches all quotes for the phrase\n"
+   +oocname+" help\n    Displays this help menu";   
   }else if(param.startsWith(" search ")){
    ind=-1;
    var exiting=false;
@@ -68,21 +78,17 @@ setTimeout(function(){
    [].slice.call(mess.querySelectorAll("p")).forEach(function(i){
     c+=(c.length>0?"\n":"")+i.innerHTML.replace(/<br(><\/br)?>/g,"\n").replace(/<\/?a[^>]*>/g,"");
    });
-   updatejs(n,c);
+   updateooc(n,c);
   };
  }
  addCommand("addquote",function(param){
   var n=param.substring(1,param.length).split(" ")[0];
   var c=param.substring(n.length+2,param.length);
-  updatejs(n,c);
+  updateooc(n,c);
  },"Adds a quote to the "+oocname+" bot");
- window.updatejs=function(n,c){
-  var js=syncRequest("/query/chatJS");
-  js+='\nooc'+(oocdef?'+="\\n':'="')+'>>'+n+'\\n\\\n'+c.replace(/"/g,'\\"').replace(/\n/g,"\\n\\\n")+'";';
-  var data = new FormData;
-  data.append("chatJS", JSON.stringify(js));
-  syncRequest("/query/savesettings", data);
+ window.updateooc=function(n,c){
   ooc+=(oocdef?"\n":"")+">>"+n+"\n"+c;
+  setoption();
   var messageJSON = { "type" : "module", "message" : "Quote "+(ooc.split(">>",-1).length-2)+" added!\n>>"+n+"\n"+c };
   displayMessage(messageJSON);
  };
@@ -149,7 +155,7 @@ setTimeout(function(){
   }
  },"Sets or gets options for the "+oocname+" bot");
  function setoption(){
-  globalStorage.setItem("ooc",JSON.stringify({oocbot:oocbot,oocname:oocname,oocbuttons:oocbuttons}));
+  globalStorage.setItem("ooc",JSON.stringify({oocbot:oocbot,oocname:oocname,oocbuttons:oocbuttons,ooc:ooc}));
  }
  systemMessage(oocname+" bot plugin has loaded");
 },2000);
