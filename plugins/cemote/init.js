@@ -1,32 +1,5 @@
 var e=[];
-var defaulturls=[
- "thumbsup.png",
- "thumbsdown.png",
- "nitori.png",
- "smug.png",
- "mailbox_with_no_mail.png",
- "o.o.png",
- "dizzy.gif",
- "nooo.gif",
- "arcfire.png",
- "HH.png",
- "stop.png",
- "divorce.png"
-];
-var defaultstrs=[
- "y",
- "n",
- "kappa",
- ":]",
- "nomail",
- "o.o",
- "spin",
- "nooo",
- "arcfire",
- "HH",
- "stop",
- "divorce"
-];
+var emotelist=JSON.parse(syncRequest("/emotes.json"));
 function save(){
  globalStorage.setItem("cemote",JSON.stringify(e));
 }
@@ -38,8 +11,7 @@ if(e==null){
 function emotereplace(m){
  [].slice.call(m.querySelectorAll("p")).forEach(function(i){
   e.forEach(function(n){
-   var ind=defaultstrs.indexOf(n.str);
-   if(ind!=-1){i.innerHTML=i.innerHTML.replace(new RegExp('<img class\\="emote" src\\="\\/static_images\\/emotes\\/'+defaulturls[ind].replace(/\./g,"\\.")+'"><\\/img>',"g"),'<img class="emote" src="'+n.url+'"></img>');}
+   if(emotelist.mapping.hasOwnProperty(n.str)){i.innerHTML=i.innerHTML.replace(new RegExp('<img class\\="emote" src\\="\\/static_images\\/emotes\\/'+emotelist.mapping[n.str].replace(/\./g,"\\.")+'">',"g"),'<img class="emote" src="'+n.url+'">');}
    i.innerHTML=i.innerHTML.replace(new RegExp("\\("+n.str+"\\)","g"),'<img class="emote" src="'+n.url+'"></img>');
   });
  });
