@@ -23,13 +23,13 @@ addCommand("cemote",function(param){
    var c=param.substring(n.length+6,param.length);
    e.push({str:n,url:c});
    save();
-   systemMessage("("+n+") added! Refresh for the changes to take effect!");
+   systemMessage("("+n+") added! Refresh for the changes to take effect on existing posts");
   }
  }else if(param.startsWith(" remove ")){
   if(param.length<=8){systemMessage("You must specify a parameter for remove in the format\n/cemote remove [string]");}
   else{
    for(var i=0;i<e.length;i++){
-    if(e[i].str==param.substring(8,param.length)){e.splice(i,1);save();systemMessage("("+param.substring(8,param.length)+") removed! Refresh for the changes to take effect!");break;}
+    if(e[i].str==param.substring(8,param.length)){e.splice(i,1);save();systemMessage("("+param.substring(8,param.length)+") removed! Refresh for the changes to take effect on existing posts");break;}
    }
   }
  }else{
