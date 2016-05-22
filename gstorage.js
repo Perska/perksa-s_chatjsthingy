@@ -22,7 +22,7 @@ var getStorage = function(){
 var setStorage = function(obj){
 	var d = "//" + JSON.stringify(obj, null, "\t").replace(/\n/g, "\n//");
 	var chatJS = getChatJS();
-	chatJS["globaldata"].replace(/\/\/START\n\/\/\{([\s\S]+)\/\/\}\n\/\/END/g,"//START\n" + d + "\n//END");
+	chatJS["globaldata"] = chatJS["globaldata"].replace(/\/\/START\n\/\/\{([\s\S]+)\/\/\}\n\/\/END/g,"//START\n" + d + "\n//END");
 	return uploadChatJS(chatJS);
 };
 
@@ -43,7 +43,7 @@ globalStorage.key = function(index){
 };
 globalStorage.setItem = function(name, value){
 	var g = getStorage();
-	g[name] = value;
+	g[name] = value + "";
 	return setStorage(g);
 };
 globalStorage.removeItem = function(name){
