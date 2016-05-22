@@ -50,7 +50,7 @@ addCommand("cemote",function(param){
     if(e[i].str==param.substring(8,param.length)){
      [].slice.call(document.querySelectorAll("li")).forEach(function(m){[].slice.call(m.querySelectorAll("p")).forEach(function(p){
       n=e[i];
-      if(emotelist.mapping.hasOwnProperty(n.str)){p.innerHTML=p.innerHTML.replace(new RegExp('<img class\\="emote" src\\="\\/static_images\\/emotes\\/'+escapeRegExp(n.url),'<img class="emote" src="'+emotelist.mapping[n.str]+'">');}
+      if(emotelist.mapping.hasOwnProperty(n.str)){p.innerHTML=p.innerHTML.replace(new RegExp('<img class\\="emote" src\\="\\/static_images\\/emotes\\/'+escapeRegExp(n.url)+'">',"g"),'<img class="emote" src="'+emotelist.mapping[n.str]+'">');}
       p.innerHTML=p.innerHTML.replace(new RegExp('<img class\\="emote" src\\="'+escapeRegExp(n.url)+'">(</img>)?',"g"),"("+n.str+")");
      });});
      
