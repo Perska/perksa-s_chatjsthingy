@@ -11,7 +11,7 @@ if(e==null){
 function emotereplace(m){
  [].slice.call(m.querySelectorAll("p")).forEach(function(i){
   e.forEach(function(n){
-   if(emotelist.mapping.hasOwnProperty(n.str)){i.innerHTML=i.innerHTML.replace(new RegExp('<img class\\="emote" src\\="\\/static_images\\/emotes\\/'+emotelist.mapping[n.str].replace(/\./g,"\\.")+'">',"g"),'<img class="emote" src="'+n.url+'">');}
+   if(emotelist.mapping.hasOwnProperty(n.str)){i.innerHTML=i.innerHTML.replace(new RegExp('<img class\\="emote" src\\="\\/static_images\\/emotes\\/'+escapeRegExp(emotelist.mapping[n.str])+'">',"g"),'<img class="emote" src="'+n.url+'">');}
    i.innerHTML=i.innerHTML.replace(new RegExp("\\("+n.str+"\\)","g"),'<img class="emote" src="'+n.url+'"></img>');
   });
  });
@@ -36,7 +36,7 @@ addCommand("cemote",function(param){
     save();
     [].slice.call(document.querySelectorAll("li")).forEach(function(m){[].slice.call(m.querySelectorAll("p")).forEach(function(i){
      n=e[e.length-1];
-     if(emotelist.mapping.hasOwnProperty(n.str)){i.innerHTML=i.innerHTML.replace(new RegExp('<img class\\="emote" src\\="\\/static_images\\/emotes\\/'+emotelist.mapping[n.str].replace(/\./g,"\\.")+'">',"g"),'<img class="emote" src="'+n.url+'">');}
+     if(emotelist.mapping.hasOwnProperty(n.str)){i.innerHTML=i.innerHTML.replace(new RegExp('<img class\\="emote" src\\="\\/static_images\\/emotes\\/'+escapeRegExp(emotelist.mapping[n.str])+'">',"g"),'<img class="emote" src="'+n.url+'">');}
      i.innerHTML=i.innerHTML.replace(new RegExp("\\("+n.str+"\\)","g"),'<img class="emote" src="'+n.url+'"></img>');
     });});
     systemMessage("("+n.str+") added!");
@@ -50,8 +50,8 @@ addCommand("cemote",function(param){
     if(e[i].str==param.substring(8,param.length)){
      [].slice.call(document.querySelectorAll("li")).forEach(function(m){[].slice.call(m.querySelectorAll("p")).forEach(function(p){
       n=e[i];
-      if(emotelist.mapping.hasOwnProperty(n.str)){p.innerHTML=p.innerHTML.replace(new RegExp('<img class\\="emote" src\\="\\/static_images\\/emotes\\/'+n.url.replace(/\./g,"\\.")+'">',"g"),'<img class="emote" src="'+emotelist.mapping[n.str]+'">');}
-      p.innerHTML=p.innerHTML.replace(new RegExp('<img class\\="emote" src\\="'+n.url.replace(/\./g,"\\.")+'">(</img>)?',"g"),"("+n.str+")");
+      if(emotelist.mapping.hasOwnProperty(n.str)){p.innerHTML=p.innerHTML.replace(new RegExp('<img class\\="emote" src\\="\\/static_images\\/emotes\\/'+escapeRegExp(n.url),'<img class="emote" src="'+emotelist.mapping[n.str]+'">');}
+      p.innerHTML=p.innerHTML.replace(new RegExp('<img class\\="emote" src\\="'+escapeRegExp(n.url)+'">(</img>)?',"g"),"("+n.str+")");
      });});
      
      flag=true;e.splice(i,1);save();systemMessage("("+param.substring(8,param.length)+") removed!");break;}
