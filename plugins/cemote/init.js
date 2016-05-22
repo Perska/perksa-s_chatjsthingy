@@ -1,4 +1,4 @@
-var e;
+var e=[];
 function save(){
  globalStorage.setItem("cemote",JSON.stringify(e));
 }
