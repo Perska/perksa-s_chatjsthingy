@@ -11,7 +11,7 @@ addMessageEvent(function(i){emotereplace(i);});
 function emotereplace(i){
  [].slice.call(i.querySelectorAll("p")).forEach(function(i){
   e.forEach(function(n){
-   i.innerHTML=i.innerHTML.replace(new RegExp("\("+n.str+"\)","g"),'<img style="height:1em;" src="'+n.url+'"/>');
+   i.innerHTML=i.innerHTML.replace(new RegExp("\\("+n.str+"\\)","g"),'<img style="height:1em;" src="'+n.url+'"/>');
   });
  });
 }
