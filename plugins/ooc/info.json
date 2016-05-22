@@ -10,7 +10,7 @@
 		{
 			"command": "outofcon.txt/user-defined",
 			"description": "Triggers the bot locally"
-		},
+		}
 	],
 	"script": "init.js"
 }
