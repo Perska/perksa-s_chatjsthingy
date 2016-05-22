@@ -1,4 +1,32 @@
 var e=[];
+var defaulturls=[
+ "thumbsup.png",
+ "thumbsdown.png",
+ "nitori.png",
+ "smug.png",
+ "mailbox_with_no_mail.png",
+ "o.o.png",
+ "dizzy.gif",
+ "nooo.gif",
+ "arcfire.png",
+ "HH.png",
+ "stop.png",
+ "divorce.png"
+];
+var defaultstrs=[
+ "y",
+ "n",
+ "kappa",
+ ":]",
+ "nomail",
+ "o.o",
+ "spin",
+ "nooo",
+ "arcfire",
+ "HH",
+ "stop",
+ "divorce"
+];
 function save(){
  globalStorage.setItem("cemote",JSON.stringify(e));
 }
@@ -7,18 +35,20 @@ if(e==null){
  e=[];save();
 }
 [].slice.call(document.querySelectorAll("li")).forEach(function(i){emotereplace(i);});
+function emotereplace(i){
+ [].slice.call(i.querySelectorAll("p")).forEach(function(i){
+  e.forEach(function(n){
+   var ind=defaultstrs.indexOf(n.str);
+   if(ind!=-1){i.innerHTML=i.innerHTML.replace(new RegExt('<img class\\="emote" src\\="\\/static_images\\/emotes\\/'+defaulturls[ind].replace(/\./g,"\\.")+'"><\\/img>',"g"),'<img class="emote" src="'+n.url+'"></img>');}
+   i.innerHTML=i.innerHTML.replace(new RegExp("\\("+n.str+"\\)","g"),'<img class="emote" src="'+n.url+'"></img>');
+  });
+ });
+}
 events.bind("message", function(msg){
  e.forEach(function(n){
   msg.message=msg.message.replace(new RegExp("\\("+n.str+"\\)","g"),'<img style="height:2.2rem;" src="'+n.url+'"/>');
  });
 });
-function emotereplace(i){
- [].slice.call(i.querySelectorAll("p")).forEach(function(i){
-  e.forEach(function(n){
-   i.innerHTML=i.innerHTML.replace(new RegExp("\\("+n.str+"\\)","g"),'<img class="emote" src="'+n.url+'"/>');
-  });
- });
-}
 addCommand("cemote",function(param){
  if(param.startsWith(" add ")){
   if(param.length<=5){systemMessage("You must specify a parameter for add in the format\n/cemote add [string]");}
