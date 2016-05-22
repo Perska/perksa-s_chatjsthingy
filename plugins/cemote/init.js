@@ -25,16 +25,24 @@ addCommand("cemote",function(param){
   else{
    var n=param.substring(5,param.length).split(" ")[0];
    var c=param.substring(n.length+6,param.length);
-   e.push({str:n,url:c});
-   save();
-   systemMessage("("+n+") added! Refresh for the changes to take effect on existing posts");
+   var flag=false;
+   for(var i=0;i<e.length;i++){
+    if(e[i].str==n){flag=true;systemMessage("("+param.substring(8,param.length)+") already exists!");break;}
+   }
+   if(!false){
+    e.push({str:n,url:c});
+    save();
+    systemMessage("("+n+") added! Refresh for the changes to take effect on existing posts");
+   }
   }
  }else if(param.startsWith(" remove ")){
   if(param.length<=8){systemMessage("You must specify a parameter for remove in the format\n/cemote remove [string]");}
   else{
+   var flag=false;
    for(var i=0;i<e.length;i++){
-    if(e[i].str==param.substring(8,param.length)){e.splice(i,1);save();systemMessage("("+param.substring(8,param.length)+") removed! Refresh for the changes to take effect on existing posts");break;}
+    if(e[i].str==param.substring(8,param.length)){flag=true;e.splice(i,1);save();systemMessage("("+param.substring(8,param.length)+") removed! Refresh for the changes to take effect on existing posts");break;}
    }
+   if(!flag){systemMessage("("+param.substring(8,param.length)+") doesn't exist and therefore couldn't be removed");}
   }
  }else{
   systemMessage("Options are:\n/cemote add [string] [url]\n/cemote remove [string]");
