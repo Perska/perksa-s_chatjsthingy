@@ -17,8 +17,7 @@ setTimeout(function(){
    var index2=this.indexOf(">>",index+1);
    if(index<0 && index2<0){bad=true;}
    if(!bad){
-    this=(index==0?"":this.substring(0,index))+(index2<0?"":this.substring(index2,this.length));
-    return true;
+    return (index==0?"":this.substring(0,index))+(index2<0?"":this.substring(index2,this.length));
    }else{return false;}
   }else{
    return false;
@@ -175,7 +174,8 @@ setTimeout(function(){
    else{
     var n=Number(param.substring(8,param.length));
     if(n==undefined){systemMessage("Invalid input for index");}else{
-     if(ooc.removequote(n)){setoption();systemMessage("Quote "+n+" successfully removed!");}else{systemMessage("Something went wrong, and quote "+n+" was unable to be removed");}
+     var res=ooc.removequote(n);
+	 if(res!=false){ooc=res;setoption();systemMessage("Quote "+n+" successfully removed!");}else{systemMessage("Something went wrong, and quote "+n+" was unable to be removed");}
     }
    }
   }else if(param.startsWith(" get ")){
