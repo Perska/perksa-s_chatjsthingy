@@ -125,7 +125,7 @@ setTimeout(function(){
     setoption();
     systemMessage("Bot name changed to "+oocname+"\nThe bot will respond to PMs correctly, but you must refresh for the local function to change from /"+oldname);
    }
-  }else if(param.startsWith(" button "){
+  }else if(param.startsWith(" button ")){
    var set=-1;
    if(param.substring(8,param.length)=="on"){
     set=true;
