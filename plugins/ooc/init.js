@@ -91,7 +91,7 @@ setTimeout(function(){
   };
  }
  window.updateooc=function(n,c){
-  ooc+=(oocdef?"\n":"")+">>"+n+"\n"+c;
+  ooc+=(ooc.length>0?"\n":"")+">>"+n+"\n"+c;
   setoption();
   var messageJSON = { "type" : "module", "message" : "Quote "+(ooc.split(">>",-1).length-2)+" added!\n>>"+n+"\n"+c };
   displayMessage(messageJSON);
