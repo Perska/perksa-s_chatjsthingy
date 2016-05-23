@@ -1,0 +1,13 @@
+{
+  "name": "dummy",
+  "author": [ "Guy 1", "Guy 2" ],
+  "commands": [
+    {
+      "name": "dummy",
+      "description": "dummy"
+    },
+    {
+      "name": "/dummer",
+      "description": "dummer"
+  }]
+}
