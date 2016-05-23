@@ -23,7 +23,7 @@ function _info(name) {
       
       if(auth instanceof Array) {
         let temp = "Authors: "
-        auth.forEach(au, i, a => {
+        auth.forEach((au, i, a) => {
           temp += au;
           if(i != a.length - 1) {temp += ", ";}
         });
