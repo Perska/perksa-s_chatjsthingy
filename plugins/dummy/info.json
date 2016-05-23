@@ -3,11 +3,11 @@
   "author": [ "Guy 1", "Guy 2" ],
   "commands": [
     {
-      "name": "dummy",
+      "command": "dummy",
       "description": "dummy"
     },
     {
-      "name": "/dummer",
+      "command": "/dummer",
       "description": "dummer"
   }]
 }
