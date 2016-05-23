@@ -57,7 +57,13 @@ addCommand("cemote",function(param){
    }
    if(!flag){systemMessage("("+param.substring(8,param.length)+") doesn't exist and therefore couldn't be removed");}
   }
+ }else if(param==" list"){
+  var out="";
+  for(i=0;i<e.length;i++){
+   out+=e[i].str+": ("+e[i].str+")"+e[i].url+"\n";
+  }
+  systemMessage(out.substring(0,out.length-1));
  }else{
-  systemMessage("Options are:\n/cemote add [string] [url]\n/cemote remove [string]");
+  systemMessage("Options are:\n/cemote add [string] [url]\n/cemote remove [string]\n/cemote list");
  }
 },"Manages custom emotes");
