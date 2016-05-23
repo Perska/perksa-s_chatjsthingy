@@ -32,15 +32,7 @@ function _info(name) {
         auth = `Author: ${json.author}`;
       }
       
-      var message = `${lname} (${name})
-        ${desc}
-        ${auth}
-        Loaded? ${(name in window.loaded["Plugins"]) ? "Yes" : "No"}
-        *****
-        
-        Commands
-        =====
-        `;
+      var message = `${lname} (${name})\n${desc}\n${auth}\nLoaded? ${(name in window.loaded["Plugins"]) ? "Yes" : "No"}\n*****\n\nCommands\n=====\n`;
       if(json.commands) {
         json.commands.forEach(cmd => {
           cmd.command = (cmd.command.charAt(0) !== "/") ? `/${cmd.command}` : cmd.command;
