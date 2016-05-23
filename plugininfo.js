@@ -27,6 +27,7 @@ function _info(name) {
           temp += author;
           if(i != a.length - 1) {temp += ", ";}
         });
+        auth = temp;
       } else {
         auth = `Author: ${json.author}`;
       }
