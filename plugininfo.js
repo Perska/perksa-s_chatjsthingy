@@ -19,14 +19,16 @@ function _info(name) {
       }
       var lname = json.name ? json.name : "No name given.";
       var desc = json.desc ? json.desc : "No description given.";
-      var auth = json.author ? `Author: ${json.author}` : "None given.";
+      var auth = json.author ? json.author : "None given.";
       
       if(auth instanceof Array) {
-        let temp = "Authors:"
+        let temp = "Authors: "
         auth.forEach(author, i, a => {
           temp += author;
           if(i != a.length - 1) {temp += ", ";}
         });
+      } else {
+        auth = `Author: ${json.author}`;
       }
       
       var message = `${lname} (${name})
