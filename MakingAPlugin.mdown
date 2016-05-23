@@ -1,0 +1,99 @@
+# Making Plugins
+
+You want to start making plugins for the chatJS Plugin System, but have no idea how to use it? Then this tutorial is for you!
+
+## Basics
+So first of all, you'll need:
+* A GitHub account
+* A fork of the plugin system (name it plugin-system or whatever)
+* A code editor (I use Code Writer for Windows 8.1/10, but Notepad++ or just Notepad will work)
+* Knowledge of how to program in JS
+
+Go to your fork, and create a new branch called "gh-pages". This will be how the plugins are hosted so you can test. Make sure that you make all your changes on the "gh-pages" branch, and not on "master".
+
+So now, we have to do a bit of modifying. Open up bootstrap.js on your fork. Change the baseUrl variable to:   
+http://{username}.github.io/{repo name}/
+Don't forget to copy this to your own chatJS!
+   
+This is how your fork will redirect requests to your own fork, and not to the official, so you can test plugins. Now, you can start!
+
+## Editing pluginlist.json
+First of all, go to the plugins folder of your fork (remember, gh-pages branch!) and make a folder (without spaces, and lowercase!).
+There's a file at the root of your fork called pluginlist.json. This is a complete list of all the plugins that exist. Insert an entry for your plugin in there, this would be the name of the subdirectory you put in the plugins folder (without plugins/).
+
+## Creating info.json
+Every plugin has a file called info.json. This contains info for /plugininfo, and also the "script" entry, which shows where the actual plugin's script is located in the folder. Here's the layout of an info.json:
+```js
+{
+	name: "Friendly name for your plugin",
+	description: "A nice description explaining what your plugin does",
+	author: "You",
+	script: "init.js or whatever",
+	commands: [
+		{
+			command: "commandwithoutslash",
+			description: "A description of what your command does"
+		}
+	]
+}
+ ```
+ 
+Once you've created and edited this, save this in the subdirectory your plugin is in as info.json.
+
+## Creating the plugin
+Now, we can talk about what you can do in a plugin, and how to do it.
+
+* A few plugins need to access the WebSocket client socket (the variable Socket) in order to use functionality, or it has to actually access the document, outside of a command. This is only available on load, and sometimes, the plugin might be loaded BEFORE load. This is resolved by creating an init() function. This will be run if or when the page is loaded (specifically, when Socket becomes available). This is NOT needed if you're using the Socket or document inside of a command callback.
+* Some plugins might leave behind event handlers when they're unloaded. To resolve this, store the function in a variable, and add a plugin.bind("unload", function(){/* cleanup code here */}) to your code. This will be fired before the plugin is considered unloaded. You cannot cancel a plugin unload.
+* If you want to store code across multiple scripts, or want to access public APIs like ChatPrefs, use loadAPI. This lets you load scripts from other files and return anything required. To load a script in your own plugin folder, put @ before the script filename. You don't add a .js to the loadAPI, but make sure your script has a .js extension. Here's an example:
+plugins/myplugin/info.json:
+```js
+{
+	name: "My plugin",
+	description: "Does stuff",
+	author: "Me",
+	script: "init.js",
+	commands: [
+		{
+			command: "testcmd",
+			description: "Does something"
+		}
+	]
+}
+ ```
+ 
+plugins/myplugin/init.js:
+```js
+var mydata = loadAPI("@myextrascript");
+addCommand("testcmd", function(){
+	systemMessage(mydata.bunnies);
+}, "Does something"); // Your command description here does not have to be the same as the description in info.json
+```
+
+plugins/myplugin/myextrascript.js
+```js
+var temp = {
+	bunnies: "I like bunnies!"
+};
+return temp; // Yes, this actually works.
+```
+* For adding commands, as seen in the previous example, use addCommand(name, callback, description). It automatically adds the module as the plugin name, so it appears properly in /localhelp. Please don't use commands.push(new Command(...)).
+* If you need to store a preference that should be usable anywhere instead of only on the current device, data that should be usable in other plugins, data that should be easily modifiable, or data that should appear where ever the user is logged in, you can use either:
+```js
+var prefs = new (loadAPI("chatprefs"))("namespace", true);
+prefs.set("hifived", 2);
+alert(prefs.get("hifived"));
+prefs.delete("hifived");
+```
+Or:
+```js
+globalStorage.setItem("hifived", 2);
+alert(globalStorage.getItem("hifived"));
+globalStorage.deleteItem("hifived");
+```
+globalStorage implements the LocalStorage/SessionStorage API interfaces, while using the global feature of the ChatPrefs API automatically stringifies data given, and makes thr function names shorter. It also implements an "exists" function. The data is stored in the chatJS under // SECTION GLOBALDATA as a JSON object.
+* If you want to do something when a message is recieved, use events.bind("message", function(msgObj){}). The msgObj is what's passed to displayMessage, so instead of stuff like messageList, it only gives the message, system, warning, and module message types. If you need to listen to actual socket events, it's a lot cleaner to do Socket.addEventListener("message", function(evt){/* ... */}) then it is to copy onMessage and override it, then call the original onMessage. Also, don't forget that if you only modify the properties of an object passed as a parameter, it'll change everywhere else too. Just don't replace the object with a new one (or a copy of ifself) :)
+* You can also hijack sendMessage by using events.bind("send", function(obj){}). The object contains message (which is the message being sent) and cmd (which would be the "isCommand" parameter). Again, don't forget you can modify the message property and it'll change everywhere else.
+
+## Submitting a pull request
+Finally have your plugin coded? Make sure you test it, then submit a pull request to http://github.com/SBS-chatJS/sbs-chatjs.github.io. Don't forget to submit your "gh-pages" branch, not your "master" branch. Then, me, slackerSnail, and Trinitro21 will look at it and decide whether or not to add it. We might ask you to make more changes if you're missing them. If it's accepted, and once the pull request is complete, your plugin will be immediately available. Don't forget to change your baseUrl in your chatJS back to http://sbs-chatjs.github.io/ when you're done!
