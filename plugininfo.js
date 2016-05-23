@@ -17,9 +17,21 @@ function _info(name) {
       } catch(e) {
         warningMessage(`Parse error: ${e.message}`);
       }
-      var message = `${json.name} (${name})
-        ${json.description}
-        Author: ${json.author}
+      var lname = json.name ? json.name : "No name given.";
+      var desc = json.desc ? json.desc : "No description given.";
+      var auth = json.author ? `Author: ${json.author}` : "None given.";
+      
+      if(auth instanceof Array) {
+        let temp = "Authors:"
+        auth.forEach(author, i, a => {
+          temp += author;
+          if(i != a.length - 1) {temp += ", ";}
+        });
+      }
+      
+      var message = `${lname} (${name})
+        ${desc}
+        ${auth}
         Loaded? ${(name in window.loaded["Plugins"]) ? "Yes" : "No"}
         *****
         
