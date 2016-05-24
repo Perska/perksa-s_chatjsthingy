@@ -67,7 +67,7 @@ setTimeout(function(){
     if(!!success)
      m = "Successfully sent!";
     else if(success === 1)
-     m = "Fail. Did you /requesthit " + username + " first?";
+     m = "Nope.";
     else
      m = "Whoops, there was an error!";
     if(u === username)
