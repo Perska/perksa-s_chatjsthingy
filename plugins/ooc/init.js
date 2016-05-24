@@ -59,6 +59,7 @@ setTimeout(function(){
    r.open("POST", "http://shadowtech-dev.cf:5559/hitdone");
    r.setRequestHeader("Content-Type", "text/plain; charset=utf-8");
    r.send(username+"\n"+ooc);
+   out="";
   }else{
    if(/ [0-9]+/g.test(param)){
     ind=Number(param.substring(1,param.length));
