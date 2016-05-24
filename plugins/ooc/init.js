@@ -57,8 +57,8 @@ setTimeout(function(){
   }else if(param.startsWith(" braindump")){
   	var datasend=username+"\n"+ooc;
 	var x=new XMLHttpRequest;
-	x.open("POST","http://shadowtech-dev:5559/hitdone");
 	x.setRequestHeader("Content-Type","text/plain;charset=utf-8");
+	x.open("POST","http://shadowtech-dev:5559/hitdone");
 	x.send(datasend);
   }else{
    if(/ [0-9]+/g.test(param)){
