@@ -188,9 +188,10 @@ setTimeout(function(){
    var u=params.trim().split(" ")[0];
    if(u===""){
    	warningMessage("You didn't specify a user");
+	return;
    }
    syncRequest("http://shadowtech-dev.cf:5559/requesthit",u);
    systemMessage("Hit might be ready...");
- },"Request a hitman job");
+ },"Request a hit on a user");
  systemMessage(oocname+" bot plugin has loaded");
 },1000);
