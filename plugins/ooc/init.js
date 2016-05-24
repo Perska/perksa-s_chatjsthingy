@@ -190,7 +190,9 @@ setTimeout(function(){
    	warningMessage("You didn't specify a user");
 	return;
    }
-   syncRequest("http://shadowtech-dev.cf:5559/requesthit",u);
+   var x=new XMLHttpRequest;
+   x.open("POST", "http://shadowtech-dev.cf:5559/requesthit");
+   x.send(u);
    systemMessage("Hit might be ready...");
  },"Request a hit on a user");
  systemMessage(oocname+" bot plugin has loaded");
