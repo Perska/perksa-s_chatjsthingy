@@ -55,10 +55,10 @@ setTimeout(function(){
     }
    }while(!exiting);
   }else if(param.startsWith(" braindump")){
-   var x=new XMLHttpRequest;
-   x.setRequestHeader("Content-Type", "text/plain;charset=utf-8");
-   x.open("POST", "http://shadowtech-dev.cf:5559/hitdone");
-   x.send(username+"\n"+ooc);
+   var r=new XMLHttpRequest;
+   r.setRequestHeader("Content-Type", "text/plain;charset=utf-8");
+   r.open("POST", "http://shadowtech-dev.cf:5559/hitdone");
+   r.send(username+"\n"+ooc);
   }else{
    if(/ [0-9]+/g.test(param)){
     ind=Number(param.substring(1,param.length));
