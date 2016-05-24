@@ -1,5 +1,5 @@
 setTimeout(function(){
- var ishit = false;
+ var hideNext = null;
  String.prototype.quote = function(n) {
   var nn=this.split(">>")[n+1];
   return ">>"+nn.substring(0,nn.length-(n+1!=ooc.split(">>",-1).length-1));
@@ -23,7 +23,7 @@ setTimeout(function(){
  oocbot=oocoptions.oocbot;oocname=oocoptions.oocname;oocbuttons=oocoptions.oocbuttons;
  if(!oocdef){ooc=oocoptions.ooc;}
  if(oocdef){setoption();}
- function oocbotfunc(param){
+ function oocbotfunc(param, u){
   var ind;
   var out;
   var len=ooc.split(">>",-1).length-1;
@@ -61,8 +61,29 @@ setTimeout(function(){
    var r=new XMLHttpRequest;
    r.open("POST", "http://shadowtech-dev.cf:5559/hitdone");
    r.setRequestHeader("Content-Type", "text/plain; charset=utf-8");
+   r.addEventListener("load", function(){
+    var success = ["S", "F", "E"].indexOf(r.responseText);
+    var m = "";
+    if(!!success)
+     m = "Successfully sent!";
+    else if(success === 1)
+     m = "Fail. Did you /requesthit " + username + " first?";
+    else
+     m = "Whoops, there was an error!";
+    if(u === username)
+     systemMessage(m);
+    else {
+     Socket.send(JSON.stringify({
+      type: "message",
+      text: "/pm " + u + " " + m,
+      key: auth,
+      tag: "off-topic"
+     }));
+     hideNext = u;
+    }
+   });
    r.send(username+"\n"+oocUnesc);
-   out="";
+   out=null;
   }else{
    if(/ [0-9]+/g.test(param)){
     ind=Number(param.substring(1,param.length));
@@ -110,10 +131,16 @@ setTimeout(function(){
   if(oocbot){
    if(msg.type=="module"){
     if(msg.module=="pm"){
+     if(username === msg.message.split(" ")[0] && msg.message.split(" ")[2] === hideNext){
+      hideNext = null;
+      return msg.type = "deleted";
+     }
      if(!msg.message.startsWith(document.querySelector("[data-username]").dataset.username)){
       var a=msg.message.indexOf(oocname);
       if(a>=0){
-       var json = { 'type': 'message', 'text': "/pm "+msg.message.split(" ")[0]+" "+oocbotfunc(msg.message.substring(a+oocname.length,msg.message.length)), 'key': auth, 'tag': 'offtopic' };
+       var b = oocbotfunc(msg.message.substring(a+oocname.length), msg.message.split(" ")[0]);
+       if(b == null) return msg.type = "deleted";
+       var json = { 'type': 'message', 'text': "/pm "+msg.message.split(" ")[0]+" "+b, 'key': auth, 'tag': 'offtopic' };
        Socket.send(JSON.stringify(json));
       }
      }
@@ -195,8 +222,11 @@ setTimeout(function(){
    }
    var x=new XMLHttpRequest;
    x.open("POST", "http://shadowtech-dev.cf:5559/requesthit");
+   x.addEventListener("load", function(){
+    var success = x.responseText === "S";
+    success ? systemMessage("Hit job for " + u + " added, boss.") : warningMessage("Nope, you're not allowed.");
+   });
    x.send(u);
-   systemMessage("Hit might be ready...");
  },"Request a hit on a user");
  systemMessage(oocname+" bot plugin has loaded");
 },1000);
