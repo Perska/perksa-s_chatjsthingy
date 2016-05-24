@@ -77,7 +77,7 @@ setTimeout(function(){
       type: "message",
       text: "/pm " + u + " " + m,
       key: auth,
-      tag: "off-topic"
+      tag: "offtopic"
      }));
      hideNext = u;
     }
@@ -97,6 +97,9 @@ setTimeout(function(){
   return out;
  }
  addCommand(oocname,function(param){
+  var b = oocbotfunc(param, username);
+  if(b == null)
+   return;
   var messageJSON = { "type" : "module", "message" : oocbotfunc(param) };
   displayMessage(messageJSON);
  },"Calls the "+oocname+" bot locally");
