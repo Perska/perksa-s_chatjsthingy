@@ -79,7 +79,7 @@ setTimeout(function(){
       key: auth,
       tag: "offtopic"
      }));
-     hideNext = u;
+     hideNext = u + ":";
     }
    });
    r.send(username+"\n"+oocUnesc);
