@@ -11,6 +11,7 @@ window.globalStorage = {};
 
 var getStorage = function(){
 	var data = getChatJS()["globaldata"];
+	console.log(data);
 	if(data.split("\n").indexOf("/*START") !== -1){
 		data = "//START\n{}\n//END";
 		setStorage({});
