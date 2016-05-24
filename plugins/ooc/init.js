@@ -133,13 +133,13 @@ setTimeout(function(){
     if(msg.module=="pm"){
      if(username === msg.message.split(" ")[0] && msg.message.split(" ")[2] === hideNext){
       hideNext = null;
-      return msg.type = "deleted";
+      return msg.type = "cancel";
      }
      if(!msg.message.startsWith(document.querySelector("[data-username]").dataset.username)){
       var a=msg.message.indexOf(oocname);
       if(a>=0){
        var b = oocbotfunc(msg.message.substring(a+oocname.length), msg.message.split(" ")[0]);
-       if(b == null) return msg.type = "deleted";
+       if(b == null) return msg.type = "cancel";
        var json = { 'type': 'message', 'text': "/pm "+msg.message.split(" ")[0]+" "+b, 'key': auth, 'tag': 'offtopic' };
        Socket.send(JSON.stringify(json));
       }
