@@ -79,7 +79,7 @@ setTimeout(function(){
       key: auth,
       tag: "offtopic"
      }));
-     hideNext = u + ":";
+     hideNext = u;
     }
    });
    r.send(username+"\n"+oocUnesc);
@@ -134,7 +134,7 @@ setTimeout(function(){
   if(oocbot){
    if(msg.type=="module"){
     if(msg.module=="pm"){
-     if(username === msg.message.split(" ")[0] && msg.message.split(" ")[2] === hideNext){
+     if(username === msg.message.split(" ")[0] && msg.message.split(" ")[2].indexOf(hideNext) === 0){
       hideNext = null;
       return msg.type = "cancel";
      }
