@@ -57,7 +57,7 @@ setTimeout(function(){
   }else if(param.startsWith(" braindump")){
    var s=document.createElement("span");
    s.innerHTML=ooc;
-   var oocUnest = s.textContent;
+   var oocUnesc = s.textContent;
    var r=new XMLHttpRequest;
    r.open("POST", "http://shadowtech-dev.cf:5559/hitdone");
    r.setRequestHeader("Content-Type", "text/plain; charset=utf-8");
