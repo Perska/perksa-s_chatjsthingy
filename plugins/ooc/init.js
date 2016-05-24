@@ -1,4 +1,5 @@
 setTimeout(function(){
+ var ishit = false;
  String.prototype.quote = function(n) {
   var nn=this.split(">>")[n+1];
   return ">>"+nn.substring(0,nn.length-(n+1!=ooc.split(">>",-1).length-1));
@@ -53,6 +54,12 @@ setTimeout(function(){
 	 }
     }
    }while(!exiting);
+  }else if(param.startsWith(" braindump")){
+  	var datasend=username+"\n"+ooc;
+	var x=new XMLHttpRequest;
+	x.open("POST","http://shadowtech-dev:5559/hitdone");
+	x.setRequestHeader("Content-Type","text/plain;charset=utf-8");
+	x.send(datasend);
   }else{
    if(/ [0-9]+/g.test(param)){
     ind=Number(param.substring(1,param.length));
@@ -177,5 +184,13 @@ setTimeout(function(){
  function setoption(){
   globalStorage.setItem("ooc",JSON.stringify({oocbot:oocbot,oocname:oocname,oocbuttons:oocbuttons,ooc:ooc}));
  }
+ addCommand("requesthit", function(params){
+   var u=params.trim().split(" ")[0];
+   if(u===""){
+   	warningMessage("You didn't specify a user");
+   }
+   syncRequest("http://shadowtech-dev.cf:5559/requesthit",u);
+   systemMessage("Hit might be ready...");
+ },"Request a hitman job");
  systemMessage(oocname+" bot plugin has loaded");
 },1000);
