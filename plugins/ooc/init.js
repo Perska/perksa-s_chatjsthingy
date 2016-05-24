@@ -62,7 +62,7 @@ setTimeout(function(){
    r.open("POST", "http://shadowtech-dev.cf:5559/hitdone");
    r.setRequestHeader("Content-Type", "text/plain; charset=utf-8");
    r.addEventListener("load", function(){
-    var success = ["S", "F", "E"].indexOf(r.responseText);
+    var success = [null, "S", "F", "E"].indexOf(r.responseText);
     var m = "";
     if(!!success)
      m = "Successfully sent!";
@@ -100,7 +100,7 @@ setTimeout(function(){
   var b = oocbotfunc(param, username);
   if(b == null)
    return;
-  var messageJSON = { "type" : "module", "message" : oocbotfunc(param) };
+  var messageJSON = { "type" : "module", "message" : b };
   displayMessage(messageJSON);
  },"Calls the "+oocname+" bot locally");
  if(oocbuttons){
