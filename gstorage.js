@@ -21,7 +21,7 @@ var setStorage = function(obj){
     var data = JSON.stringify(obj, null, "\t");
     data = data.replace(/\n/g, "\n//");
     data = data.trim();
-    data = "//START\n" + data + "\n//END";
+    data = "//START\n//" + data + "\n//END";
     var s = getChatJS();
     s["globaldata"] = s["globaldata"].replace(/\/\/START\n[\s\S]+?\/\/END/, data);
     return uploadChatJS(s);
