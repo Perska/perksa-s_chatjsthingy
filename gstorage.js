@@ -14,10 +14,17 @@ var getStorage = function(){
     data = data.replace(/^[\s\S]*?\/\/START\n([\s\S]+?)\/\/END[\s\S]*?/g, "$1");
     data = data.replace(/(^|\n)\/\//g, "\n");
     data = data.trim();
-    alert(data);
+    return JSON.parse(data);
 };
 
 var setStorage = function(obj){
+    var data = JSON.stringify(obj, null, "\t");
+    data = data.replace(/\n/g, "\n//");
+    data = data.trim();
+    data = "//START\n" + data + "\n//END";
+    var s = getChatJS();
+    s["globaldata"] = s["globaldata"].replace(/\/\/START\n[\s\S]+?\/\/END/, data);
+    return uploadChatJS(s);
 };
 
 Object.defineProperty(globalStorage, "length", {
