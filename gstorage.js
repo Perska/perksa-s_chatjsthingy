@@ -15,8 +15,7 @@ var getStorage = function(){
 		data = "//START\n{}\n//END";
 		setStorage({});
 	}
-	var d = /^[\s\S]*?\/\/START([\s\S]+)\n\/\/END/i.exec(data)[1].replace(/\n\/\//g, "\n");
-	console.log(d);
+	var d = /^[\s\S]*\/\/START([\s\S]+)\n\/\/END[\s\S]*$/i.exec(data)[1].replace(/\n\/\//g, "\n");
 	return JSON.parse(d.trim());
 };
 
@@ -24,7 +23,6 @@ var setStorage = function(obj){
 	var d = "//" + JSON.stringify(obj, null, "\t").replace(/\n/g, "\n//");
 	var chatJS = getChatJS();
 	chatJS["globaldata"] = chatJS["globaldata"].replace(/\/\/START\n\/\/\{([\s\S]+)\/\/\}\n\/\/END/g,"//START\n" + d + "\n//END");
-	console.log(chatJS["globaldata"]);
 	return uploadChatJS(chatJS);
 };
 
