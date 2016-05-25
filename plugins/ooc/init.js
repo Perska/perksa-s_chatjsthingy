@@ -66,7 +66,7 @@ setTimeout(function(){
     var m = "";
     if(!!success)
      m = "Successfully sent!";
-    else if(success === 1)
+    else if(success === 2)
      m = "Nope.";
     else
      m = "Whoops, there was an error!";
