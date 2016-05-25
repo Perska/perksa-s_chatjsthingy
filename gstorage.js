@@ -12,6 +12,8 @@ window.globalStorage = {};
 var getStorage = function(){
     var data = getChatJS()["globaldata"];
     data = data.replace(/^[\s\S]*?\/\/START\n([\s\S]+?)\/\/END[\s\S]*?/g, "$1");
+    data = data.replace(/(^|\n)\/\//g, "\n");
+    data = data.trim();
     alert(data);
 };
 
