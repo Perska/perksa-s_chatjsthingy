@@ -11,7 +11,7 @@ window.globalStorage = {};
 
 var getStorage = function(){
     var data = getChatJS()["globaldata"];
-    data = data.replace(/^[\s\S]*?\/\/START\n([\s\S]+?)\/\/END[\s\S]*?/g, "$1");
+    data = data.replace(/^[\s\S]*?\/\/START\n([\s\S]+?)\/\/END[\s\S]*?$/g, "$1");
     data = data.replace(/(^|\n)\/\//g, "\n");
     data = data.trim();
     return JSON.parse(data);
@@ -23,7 +23,7 @@ var setStorage = function(obj){
     data = data.trim();
     data = "//START\n//" + data + "\n//END";
     var s = getChatJS();
-    s["globaldata"] = s["globaldata"].replace(/\/\/START\n[\s\S]+?\/\/END/, data);
+    s["globaldata"] = s["globaldata"].replace(/\/\/START\n[\s\S]+?\n\/\/END/, data);
     return uploadChatJS(s);
 };
 
