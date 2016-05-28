@@ -3,5 +3,6 @@
   "style",
   "runjs",
   "ooc",
-  "cemote"
+  "cemote",
+  "ignoresync"
 ]
