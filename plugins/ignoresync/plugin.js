@@ -12,6 +12,6 @@ addCommand("useglobal", function(){
 }, "Uses the synced ignore list from Global Storage");
 
 addCommand("syncglobal", function(){
-	globalStorage.setItem("ignoreList_sync". ignoreList);
+	globalStorage.setItem("ignoreList_sync", JSON.stringify(ignoreList));
 	systemMessage("Success!");
 }, "Syncs the ignore list on the current device to Global Storage");
