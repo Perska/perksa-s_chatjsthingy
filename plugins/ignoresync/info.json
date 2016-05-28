@@ -1,0 +1,16 @@
+{
+	"name": "ignoresync",
+	"description": "Allows using the same ignore list on each device, or syncing it to Global Storage",
+	"author": "ShadowCX11",
+	"init": "plugin.js",
+	"commands": [
+		{
+			"command": "useglobal",
+			"description": "Uses the synced ignore list from Global Storage"
+		},
+		{
+			"command": "syncglobal",
+			"description": "Syncs the ignore list on the current device to Global Storage"
+		}
+	]
+}
